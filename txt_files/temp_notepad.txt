@@ -1,0 +1,1350 @@
+// ##################
+// Headers
+// ##################
+
+#platform "Gen4-uLCD-70DT"
+#inherit "4DGL_16bitColours.fnc"
+#inherit "VisualConst.inc"
+#inherit "CERDECConst.inc"
+
+// ##################
+// Constants
+// ##################
+
+// Generic
+#constant BTN_UP        0
+#constant BTN_DOWN      1
+#constant ACTIVE        1
+#constant INACTIVE      0
+#constant TRUE          1
+#constant FALSE         0
+#constant OFFLINE       1
+#constant ONLINE        0
+#constant START_BYT     0x18
+
+// Colors
+#constant BACKGROUND_COLOR  0xDF5F
+#constant LED_GOOD          LIMEGREEN
+#constant LED_IDLE          0x34DF
+#constant LED_BAD           RED
+#constant RB_CHKD           BLACK
+#constant RB_UNCHKD         0xD699
+
+// Forms
+#constant OVERVIEW_FORM 0
+#constant SHELF_FORM 1
+#constant MOD_FORM 2
+
+// Indices
+#constant TYPE  2
+#constant ID    3
+#constant MOD_V 4
+#constant MOD_T 6
+#constant MOD_A 7
+
+// TODO: Add indices to indexers
+#constant SHELF_V
+#constant SHELF_T
+#constant SHELF_H
+#constant SHELF_L
+#constant SHELF_ID
+#constant SHELF_A
+#constant SHELF_E
+
+// ##################
+// Structures
+// ##################
+
+// System has 12 major characteristics
+// 1) System Status, Int: 1 Byte
+// 2) System Mode, Int: 1 Byte
+// 3) Relay Status, Int: 1 Byte
+// 4) # of Discharges, Int: 1 Byte
+// 5) Stored Energy, Float: 2 Bytes
+// 6) Time at Max, Float: 2 Bytes
+// 7) Estimated Runtime, Float: 2 Bytes
+// 8) Bus Voltage, Float: 2 Bytes
+// 9) Output Current, Float: 2 Bytes
+// 10) Capacitors' Voltage, Float: 2 Bytes
+var system[16];
+
+// Shelves have 9 major characteristics
+// 1) Total Voltage, Float: 2 Bytes
+// 2) Avg. Temp, Int: 1 Byte
+// 3) Highest Temp, Float: 1 Byte
+// 4) Lowest Temp, Float: 1 Bytes
+// 5) ID Highest/Lowest Temp, Int: 1 Byte
+// 6) Alarm/Error, Int : 1 Byte
+// 7) Error ID, Int: 1 Byte
+// 8) X Position,  Int: 1 Byte
+// 9) Y Position,  Int: 1 Byte
+// 10) Good Button handle, Ptr: 1 Byte
+// 11) Bad Button handle, Ptr: 1 Byte
+var shelf0[13];
+var *shelf_ptr;
+var shelf_volt[2];
+var shelf_temp[2];
+
+// Modules have 7 major characteristics
+// 1) Voltage, Float: 2 Bytes
+// 2) Temperature, Int: 1 Byte
+// 3) Alarm/Error, Int: 1 Byte
+// 4) X Position,  Int: 1 Byte
+// 5) Y Position,  Int: 1 Byte
+// 6) Good Button handle, Ptr: 1 Byte
+// 7) Bad Button handle, Ptr: 1 Byte
+var mod0[8];
+var mod1[8];
+var mod2[8];
+var mod3[8];
+var mod4[8];
+var mod5[8];
+var mod6[8];
+var mod7[8];
+var mod8[8];
+var mods[9] := [mod0, mod1, mod2, mod3, mod4, mod5, mod6, mod7, mod8];
+var current_mod := 0;
+var *mod_ptr_1;
+var *mod_ptr_2;
+var mod_volt[2];
+var mod_temp[2];
+
+// ##################
+// Variables
+// ##################
+
+// Initialize to the overview screen
+var current_form := OVERVIEW_FORM;
+
+// ##################
+// Main
+// ##################
+
+func main()
+
+  // Mount the drive
+  putstr("Mounting...\n");
+  if (!(file_Mount()))
+    while(!(file_Mount()))
+      putstr("Drive not mounted...");
+      pause(200);
+      gfx_Cls();
+      pause(200);
+    wend
+  endif
+
+  // Get file handle
+  hndl := file_LoadImageControl("CERDEC.dat", "CERDEC.gci", 1);
+
+  // Basic initialization stuff
+  gfx_Set(SCREEN_MODE, LANDSCAPE);
+  touch_Set(TOUCH_ENABLE);
+
+  // Draw the logo screen then the overall screen
+  draw_logo_screen();
+  pause(1500);
+  draw_overall_form();
+
+  // Enter the forever loop
+  repeat
+
+    // Send Commands
+    if(current_form == SHELF_FORM || current_form == MOD_FORM)
+
+      var current_shelf := 0;
+      request_all_shelf_mods(current_shelf);
+
+    endif
+    // Read Commands
+    // process_input();
+
+    // Update the view
+
+    // Check for user input
+    check_press();
+
+    // React to user input
+
+  forever
+
+endfunc
+
+// ##################
+// DRAWING
+// ##################
+
+// === Logo Screen ===
+
+func draw_logo_screen()
+
+  gfx_BGcolour(WHITE);
+  gfx_Cls();
+
+endfunc
+
+// === Overall Form ===
+
+func draw_overall_form()
+
+  // Overall System Form
+  gfx_BGcolour(0x8D9C) ;
+  gfx_Cls() ;
+
+  // Draw the Title
+  img_Show(hndl,iCERDEC_Title);
+
+  // Draw the System Status
+  draw_system_status();
+
+  // Draw the System Mode
+  draw_system_mode();
+
+  // Draw the Relay Status
+  draw_relay_status();
+
+  // Draw the Number of Discharges
+  draw_num_discharges();
+
+  // Draw Stored Energy
+  draw_stored_energy();
+
+  // Draw Time at Max
+  draw_time_at_max();
+
+  // Draw Estimated Runtime
+  draw_estimated_runtime();
+
+  // Draw Bus Voltage
+  draw_bus_voltage();
+
+  // Draw Output Current
+  draw_output_current();
+
+  // Draw Capacitors' Voltage
+  draw_capacitors_voltage();
+
+  // Draw the buttons on the far right side
+  draw_overall_side_buttons();
+
+  // Draw the Modules
+  draw_overall_mods();
+
+endfunc
+
+func draw_system_status()
+
+  // System Status Field
+  gfx_Panel(PANEL_RAISED, 12, 129, 65, 30, WHITE);
+
+  // Reset System Status Button
+  img_ClearAttributes(hndl, iResetSystemStatus_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iResetSystemStatus_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iResetSystemStatus_btn);
+
+  // System Status Title
+  img_Show(hndl,iSystemStatus_Title);
+
+endfunc
+
+func draw_system_mode()
+
+  // System Mode Border is drawn in parent function
+
+  // Draw the title + labels
+  draw_system_mode_labels();
+
+  // Draw the Radio Buttons
+  draw_system_mode_radios();
+
+endfunc
+
+func draw_relay_status()
+
+  // Relay State Label
+  img_Show(hndl,iRelayState_Label);
+
+  // Draw the Relay Status LED
+  draw_relay_status_led();
+
+endfunc
+
+func draw_num_discharges()
+
+  // Draw the Number Discharges Field
+  gfx_Panel(PANEL_RAISED, 12, 360, 65, 30, WHITE);
+
+  // Reset Discharges Button
+  img_ClearAttributes(hndl, iResetDischarges_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iResetDischarges_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iResetDischarges_btn);
+
+  // Draw the Number Discharges Title
+  img_Show(hndl,iNumberDischarges_Label);
+
+endfunc
+
+func draw_stored_energy()
+
+  // Stored Energy Field
+  gfx_Panel(PANEL_RAISED, 516, 96, 108, 35, WHITE);
+
+  // Stored Energy Label
+  img_Show(hndl,iStoredEnergy_Label);
+
+endfunc
+
+func draw_time_at_max()
+
+  // Time @ Max Field
+  gfx_Panel(PANEL_RAISED, 516, 181, 108, 35, WHITE);
+
+  // Time @ Max Label
+  img_Show(hndl,iMaxTime_Label);
+
+endfunc
+
+func draw_estimated_runtime()
+
+  // Estimated Runtime Field
+  gfx_Panel(PANEL_RAISED, 516, 222, 108, 35, WHITE);
+
+  // Estimated Runtime Label
+  img_Show(hndl,iEstimatedRuntime_Label);
+
+endfunc
+
+func draw_bus_voltage()
+
+  // Bus Voltage Field
+  gfx_Panel(PANEL_RAISED, 516, 275, 108, 35, WHITE);
+
+  // Bus Voltage Label
+  img_Show(hndl,iBusVoltage_btn);
+
+endfunc
+
+func draw_output_current()
+
+  // Output Current Field
+  gfx_Panel(PANEL_RAISED, 516, 316, 108, 35, WHITE);
+
+  // Output Current Label
+  img_Show(hndl,iOutputCurrent_Label);
+
+endfunc
+
+func draw_capacitors_voltage()
+
+  // Capacitors' Voltage Field
+  gfx_Panel(PANEL_RAISED, 516, 357, 108, 35, WHITE);
+
+  // Capacitors' Voltage Label
+  img_Show(hndl,iCapacitorVoltage_Label);
+
+endfunc
+
+func draw_relay_status_led()
+
+  var relay_index;
+  relay_index := 2;
+
+  // Draw the background LED first
+  gfx_CircleFilled(111, 298, 18, 0x6B6D);
+
+  // Draw the Relay Status LED
+  if(system[relay_index] == ACTIVE)
+    gfx_CircleFilled(111, 298, 17, LED_GOOD);
+  else
+    gfx_CircleFilled(111, 298, 17, LED_BAD);
+  endif
+
+endfunc
+
+func draw_system_mode_radios()
+
+  var mode_index, off, idle, voltage, power;
+  mode_index := 1;
+  off := 0;
+  idle := 1;
+  voltage := 2;
+  power := 3;
+
+  // System Off Radio Button
+  if(system[mode_index] == off)
+    gfx_CircleFilled(25, 215, 10, RB_CHKD);
+  else
+    gfx_CircleFilled(25, 215, 10, RB_UNCHKD);
+  endif
+
+  // System Idle Radio Button
+  if(system[mode_index] == idle)
+    gfx_CircleFilled(25, 250, 10, RB_CHKD);
+  else
+    gfx_CircleFilled(25, 250, 10, RB_UNCHKD);
+  endif
+
+  // System Power Radio Button
+  if(system[mode_index] == power)
+    gfx_CircleFilled(100, 250, 10, RB_CHKD);
+  else
+    gfx_CircleFilled(100, 250, 10, RB_UNCHKD);
+  endif
+
+  // System Voltage Radio Button
+  if(system[mode_index] == voltage)
+    gfx_CircleFilled(100, 215, 10, RB_CHKD);
+  else
+    gfx_CircleFilled(100, 215, 10, RB_UNCHKD);
+  endif
+
+endfunc
+
+func draw_system_mode_labels()
+
+  // System Mode Title
+  img_Show(hndl,iSystemMode_Title);
+
+  // System Mode Off Label
+  img_Show(hndl,iSystemOff_Label);
+
+  // System Mode Idle Label
+  img_Show(hndl,iSystemIdle_Label);
+
+  // System Mode Voltage Label
+  img_Show(hndl,iSystemVoltage_Label);
+
+  // System Mode Power Label
+  img_Show(hndl,iSystemPower_Label);
+
+endfunc
+
+func draw_overall_side_buttons()
+
+    // SystemStart_btn
+    img_ClearAttributes(hndl, iSystemStart_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iSystemStart_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iSystemStart_btn);
+
+    // SystemStop_btn
+    img_ClearAttributes(hndl, iSystemStop_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iSystemStop_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iSystemStop_btn);
+
+    // Shelf_btn
+    img_ClearAttributes(hndl, iShelf_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iShelf_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iShelf_btn);
+
+    // EmergencyStop_btn
+    img_ClearAttributes(hndl, iEmergencyStop_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iEmergencyStop_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iEmergencyStop_btn);
+
+    // Draw all the module buttons
+    draw_overall_mods();
+
+endfunc
+
+func draw_overall_mods()
+
+  var alarm_index := 2;
+
+  // Main Module 0 Button
+  if(any_mod_errors(mod0))
+    // MainModule1Good_btn
+    img_ClearAttributes(hndl, iMainModule1Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule1Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule1Good_btn);
+    img_SetAttributes(hndl, iMainModule1Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule1Bad_btn
+    img_ClearAttributes(hndl, iMainModule1Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule1Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule1Bad_btn);
+    img_SetAttributes(hndl, iMainModule1Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 1 Button
+  if(any_mod_errors(mod1))
+    // MainModule2Good_btn
+    img_ClearAttributes(hndl, iMainModule2Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule2Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule2Good_btn);
+    img_SetAttributes(hndl, iMainModule2Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule2Bad_btn
+    img_ClearAttributes(hndl, iMainModule2Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule2Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule2Bad_btn);
+    img_SetAttributes(hndl, iMainModule2Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 2 Button
+  if(any_mod_errors(mod2))
+    // MainModule3Good_btn
+    img_ClearAttributes(hndl, iMainModule3Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule3Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule3Good_btn);
+    img_SetAttributes(hndl, iMainModule3Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule3Bad_btn
+    img_ClearAttributes(hndl, iMainModule3Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule3Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule3Bad_btn);
+    img_SetAttributes(hndl, iMainModule3Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 3 Button
+  if(any_mod_errors(mod3))
+    // MainModule4Good_btn
+    img_ClearAttributes(hndl, iMainModule4Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule4Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule4Good_btn);
+    img_SetAttributes(hndl, iMainModule4Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule4Good_btn
+    img_ClearAttributes(hndl, iMainModule4Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule4Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule4Bad_btn);
+    img_SetAttributes(hndl, iMainModule4Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 4 Button
+  if(any_mod_errors(mod4))
+    // MainModule5Good_btn
+    img_ClearAttributes(hndl, iMainModule5Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule5Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule5Good_btn);
+    img_SetAttributes(hndl, iMainModule5Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule5Good_btn
+    img_ClearAttributes(hndl, iMainModule5Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule5Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule5Bad_btn);
+    img_SetAttributes(hndl, iMainModule5Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 5 Button
+  if(any_mod_errors(mod5))
+    // MainModule6Good_btn
+    img_ClearAttributes(hndl, iMainModule6Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule6Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule6Good_btn);
+    img_SetAttributes(hndl, iMainModule6Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule6Good_btn
+    img_ClearAttributes(hndl, iMainModule6Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule6Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule6Bad_btn);
+    img_SetAttributes(hndl, iMainModule6Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 6 Button
+  if(any_mod_errors(mod6))
+    // MainModule7Good_btn
+    img_ClearAttributes(hndl, iMainModule7Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule7Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule7Good_btn);
+    img_SetAttributes(hndl, iMainModule7Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule7Good_btn
+    img_ClearAttributes(hndl, iMainModule7Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule7Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule7Bad_btn);
+    img_SetAttributes(hndl, iMainModule7Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 7 Button
+  if(any_mod_errors(mod7))
+    // MainModule8Good_btn
+    img_ClearAttributes(hndl, iMainModule8Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule8Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule8Good_btn);
+    img_SetAttributes(hndl, iMainModule8Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule8Good_btn
+    img_ClearAttributes(hndl, iMainModule8Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule8Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule8Bad_btn);
+    img_SetAttributes(hndl, iMainModule8Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 8 Button
+  if(any_mod_errors(mod8))
+    // MainModule9Good_btn
+    img_ClearAttributes(hndl, iMainModule9Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule9Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule9Good_btn);
+    img_SetAttributes(hndl, iMainModule9Bad_btn, I_TOUCH_DISABLE);
+  else
+    // MainModule9Good_btn
+    img_ClearAttributes(hndl, iMainModule9Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iMainModule9Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iMainModule9Bad_btn);
+    img_SetAttributes(hndl, iMainModule9Good_btn, I_TOUCH_DISABLE);
+  endif
+
+endfunc
+
+func any_mod_errors(var mod)
+  var alarm_index;
+  alarm_index := 2;
+  if(mod[alarm_index] == 0x00 || mod[alarm_index] == 0x00)
+    return TRUE;
+  else
+    return FALSE;
+  endif
+endfunc
+
+// === Shelf Form ===
+
+func draw_shelf_form()
+
+  gfx_BGcolour(0x8D9C);
+  gfx_Cls();
+
+  draw_shelf_modules();
+
+  draw_shelf_mod_info(0);
+
+  draw_shelf_alarms();
+
+  draw_shelf_readings();
+
+  draw_shelf_system_status();
+
+  draw_shelf_side_buttons();
+
+endfunc
+
+func draw_shelf_alarms()
+
+  // Draw the background panel
+  gfx_OutlineColour(SILVER);
+  gfx_Panel(PANEL_SUNKEN, 18, 225, 270, 236, 0x8D9C);
+  gfx_OutlineColour(BLACK);
+
+  // Draw the LEDs
+  draw_shelf_alarm_leds();
+
+  // Draw the labels for the LEDs
+  draw_shelf_alarms_labels();
+
+  // Draw the "Error" field
+  gfx_Panel(PANEL_RAISED, 160, 406, 108, 35, WHITE);
+
+  // Draw the title
+  img_Show(hndl,iShelfAlarms_Title);
+
+endfunc
+
+func draw_shelf_readings()
+
+  // Draw the background panel
+  gfx_OutlineColour(SILVER);
+  gfx_Panel(PANEL_SUNKEN, 296, 225, 324, 236, 0x8D9C);
+  gfx_OutlineColour(BLACK);
+
+  // Draw the labels
+  draw_shelf_readings_labels();
+
+  // Draw the fields
+  draw_shelf_readings_fields();
+
+  // Draw the title
+  img_Show(hndl,iShelfReadings_Title);
+
+endfunc
+
+func draw_shelf_modules()
+
+  // Draw the background panel
+  gfx_OutlineColour(SILVER);
+  gfx_Panel(PANEL_SUNKEN, 18, 29, 270, 166, 0x8D9C);
+  gfx_OutlineColour(BLACK);
+
+  // Draw the modules
+  draw_shelf_module_buttons();
+
+  // Draw the title
+  img_Show(hndl,iModules_Title);
+
+endfunc
+
+func draw_shelf_mod_info(var mod_number)
+
+  // Draw the background panel
+  gfx_OutlineColour(SILVER);
+  gfx_Panel(PANEL_SUNKEN, 296, 29, 324, 166, 0x8D9C);
+  gfx_OutlineColour(BLACK);
+
+  // Draw the LEDs for the module's alarms
+  draw_mod_alarm_leds(mods[mod_number]);
+
+  // Draw the labels for the module's fields
+  draw_mod_labels();
+
+  // Draw the title
+  img_Show(hndl,iModuleNumber_Title);
+
+endfunc
+
+func draw_mod_alarm_leds(var mod)
+
+  var alarm_index, alarms;
+  alarm_index := 2;
+  alarms := mod[alarm_index];
+
+  // Shelf Over Charged
+  if(alarms & 0x01 == 0x01)
+    gfx_CircleFilled(324, 140, 10, LED_GOOD);
+  else
+    gfx_CircleFilled(324, 140, 10, LED_BAD);
+  endif
+
+  // Shelf Over Temp
+  if(alarms & 0x04 == 0x04)
+    gfx_CircleFilled(500, 140, 10, LED_GOOD);
+  else
+    gfx_CircleFilled(500, 140, 10, LED_BAD);
+  endif
+
+  // Shelf Over Disc
+  if(alarms & 0x02 == 0x02)
+    gfx_CircleFilled(324, 172, 10, LED_GOOD);
+  else
+    gfx_CircleFilled(324, 172, 10, LED_BAD);
+  endif
+
+  // Shelf Error
+  if(alarms & 0x08 == 0x08)
+    gfx_CircleFilled(500, 172, 10, LED_GOOD);
+  else
+    gfx_CircleFilled(500, 172, 10, LED_BAD);
+  endif
+
+endfunc
+
+func draw_mod_labels()
+
+  // Module Voltage
+  img_Show(hndl,iModuleVoltage_Label) ;
+
+  // Module Temp
+  img_Show(hndl,iModuleTemp_Label) ;
+
+  // Module Voltage Units
+  img_Show(hndl,iModuleVoltage_Unit) ;
+
+  // Module Temp Units
+  img_Show(hndl,iModuleTemp_Units) ;
+
+  // Module Over Charged
+  img_Show(hndl,iModuleOverCharged_Label) ;
+
+  // Module Over Discharged
+  img_Show(hndl,iModuleOverDischarged_Label) ;
+
+  // Module Over Temp
+  img_Show(hndl,iModuleOverTemp_Label) ;
+
+  // Module Error
+  img_Show(hndl,iModuleError_Label) ;
+  gfx_Panel(PANEL_RAISED, 572, 160, 35, 25, WHITE) ;
+
+endfunc
+
+func draw_shelf_module_buttons()
+
+  var alarm_index := 2;
+
+  // Main Module 0 Button
+  if(any_mod_errors(mod0))
+    img_ClearAttributes(hndl, iModule1Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule1Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule1Good_btn);
+    img_SetAttributes(hndl, iModule1Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule1Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule1Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule1Bad_btn);
+    img_SetAttributes(hndl, iModule1Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 1 Button
+  if(any_mod_errors(mod1))
+    img_ClearAttributes(hndl, iModule2Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule2Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule2Good_btn);
+    img_SetAttributes(hndl, iModule2Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule2Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule2Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule2Bad_btn);
+    img_SetAttributes(hndl, iModule2Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 2 Button
+  if(any_mod_errors(mod2))
+    img_ClearAttributes(hndl, iModule3Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule3Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule3Good_btn);
+    img_SetAttributes(hndl, iModule3Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule3Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule3Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule3Bad_btn);
+    img_SetAttributes(hndl, iModule3Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 3 Button
+  if(any_mod_errors(mod3))
+    img_ClearAttributes(hndl, iModule4Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule4Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule4Good_btn);
+    img_SetAttributes(hndl, iModule4Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule4Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule4Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule4Bad_btn);
+    img_SetAttributes(hndl, iModule4Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 4 Button
+  if(any_mod_errors(mod4))
+    img_ClearAttributes(hndl, iModule5Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule5Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule5Good_btn);
+    img_SetAttributes(hndl, iModule5Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule5Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule5Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule5Bad_btn);
+    img_SetAttributes(hndl, iModule5Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 5 Button
+  if(any_mod_errors(mod5))
+    img_ClearAttributes(hndl, iModule6Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule6Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule6Good_btn);
+    img_SetAttributes(hndl, iModule6Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule6Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule6Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule6Bad_btn);
+    img_SetAttributes(hndl, iModule6Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 6 Button
+  if(any_mod_errors(mod6))
+    img_ClearAttributes(hndl, iModule7Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule7Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule7Good_btn);
+    img_SetAttributes(hndl, iModule7Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule7Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule7Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule7Bad_btn);
+    img_SetAttributes(hndl, iModule7Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 7 Button
+  if(any_mod_errors(mod7))
+    img_ClearAttributes(hndl, iModule8Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule8Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule8Good_btn);
+    img_SetAttributes(hndl, iModule8Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule8Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule8Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule8Bad_btn);
+    img_SetAttributes(hndl, iModule8Good_btn, I_TOUCH_DISABLE);
+  endif
+
+  // Main Module 8 Button
+  if(any_mod_errors(mod8))
+    img_ClearAttributes(hndl, iModule9Good_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule9Good_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule9Good_btn);
+    img_SetAttributes(hndl, iModule9Bad_btn, I_TOUCH_DISABLE);
+  else
+    img_ClearAttributes(hndl, iModule9Bad_btn, I_TOUCH_DISABLE);
+    img_SetWord(hndl, iModule9Bad_btn, IMAGE_INDEX, BTN_UP);
+    img_Show(hndl,iModule9Bad_btn);
+    img_SetAttributes(hndl, iModule9Good_btn, I_TOUCH_DISABLE);
+  endif
+
+endfunc
+
+func draw_shelf_alarm_leds()
+
+  var alarm_index, alarms;
+  alarm_index := 6;
+  alarms := shelf0[alarm_index];
+
+  // Shelf Over Charged
+  if(alarms & 0x01 == 0x01)
+    gfx_CircleFilled(50, 265, 20, LED_GOOD);
+  else
+    gfx_CircleFilled(50, 265, 20, LED_BAD);
+  endif
+
+  // Shelf Over Temp
+  if(alarms & 0x04 == 0x04)
+    gfx_CircleFilled(50, 317, 20, LED_GOOD);
+  else
+    gfx_CircleFilled(50, 317, 20, LED_BAD);
+  endif
+
+  // Shelf Over Disc
+  if(alarms & 0x02 == 0x02)
+    gfx_CircleFilled(50, 368, 20, LED_GOOD);
+  else
+    gfx_CircleFilled(50, 368, 20, LED_BAD);
+  endif
+
+  // Shelf Error
+  if(alarms & 0x08 == 0x08)
+    gfx_CircleFilled(50, 425, 20, LED_GOOD);
+  else
+    gfx_CircleFilled(50, 425, 20, LED_BAD);
+  endif
+
+endfunc
+
+func draw_shelf_alarms_labels()
+
+  // Shelf Over Charge
+  img_Show(hndl,iShelfOverCharge_Label);
+
+  // Shelf Over Temp
+  img_Show(hndl,iShelfOverTemp_Label);
+
+  // Over Discharged
+  img_Show(hndl,iOverDischarged_Label);
+
+  // Shelf Error
+  img_Show(hndl,iShelfError_Label);
+
+endfunc
+
+func draw_shelf_readings_labels()
+
+  // Shelf Total Voltage
+  img_Show(hndl,iShelfTotalVoltage_Label);
+
+  // Shelf Average Temp
+  img_Show(hndl,iShelfAverageTemp_Label);
+
+  // Shelf Max Temp
+  img_Show(hndl,iShelfMaxTemp_Label);
+
+  // Shelf Min Temp
+  img_Show(hndl,iShelfMinTemp_Label);
+
+  // Shelf Total Voltage Units
+  img_Show(hndl,iShelfTotalVoltage_Units);
+
+  // Shelf Average Temp Units
+  img_Show(hndl,iShelfAverageTemp_Units);
+
+  // Module ID
+  img_Show(hndl,iModuleID_Label);
+
+endfunc
+
+func draw_shelf_readings_fields()
+
+  // Total Voltage
+  gfx_Panel(PANEL_RAISED, 441, 246, 108, 35, WHITE);
+
+  // Average Temp
+  gfx_Panel(PANEL_RAISED, 441, 291, 108, 35, WHITE);
+
+  // Max Temp
+  gfx_Panel(PANEL_RAISED, 441, 364, 108, 35, WHITE);
+
+  // Min Temp
+  gfx_Panel(PANEL_RAISED, 441, 416, 108, 35, WHITE);
+
+  // Max ID
+  gfx_Panel(PANEL_RAISED, 560, 364, 50, 35, WHITE);
+
+  // Min ID
+  gfx_Panel(PANEL_RAISED, 560, 416, 50, 35, WHITE);
+
+endfunc
+
+func draw_shelf_system_status()
+
+
+
+endfunc
+
+func draw_shelf_side_buttons()
+
+  // SystemStart_btn
+  img_ClearAttributes(hndl, iSystemStart_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iSystemStart_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iSystemStart_btn);
+
+  // SystemStop_btn
+  img_ClearAttributes(hndl, iSystemStop_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iSystemStop_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iSystemStop_btn);
+
+  // Shelf_btn
+  img_ClearAttributes(hndl, iShelfToMain_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iShelfToMain_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iShelfToMain_btn);
+
+  // EmergencyStop_btn
+  img_ClearAttributes(hndl, iEmergencyStop_btn, I_TOUCH_DISABLE);
+  img_SetWord(hndl, iEmergencyStop_btn, IMAGE_INDEX, BTN_UP);
+  img_Show(hndl,iEmergencyStop_btn);
+
+endfunc
+
+// ##################
+// Math
+// ##################
+
+// Prints the system voltage
+// Sums the voltage from each shelf
+func print_system_voltage(var x_pos, var y_pos)
+
+    var sys_volt[2];
+
+    sys_volt := calc_system_voltage();
+
+    gfx_MoveTo(x_pos, y_pos);
+    flt_PRINT(sys_volt, "%-.0f");
+
+endfunc
+
+// Calculates the system voltage
+// By summing up each shelf's voltage
+func calc_system_voltage()
+
+    var sys_volt[2];
+
+    // Init the system voltage
+    flt_VAL(sys_volt, "0.0");
+
+    // Sum the voltages
+    var i;
+    for(i := 0; i < 3; i++)
+
+        calc_shelf_voltage(i);
+
+        // Add current shelf voltage to system voltage
+        flt_ADD(sys_volt, sys_volt, shelf_volt);
+    next
+
+    return sys_volt;
+
+endfunc
+
+// Prints off the voltage given a 16 bit int
+func print_shelf_voltage(var shelf, var x_pos, var y_pos)
+
+    // Setting up float arrays
+    var volt_flt[2];
+
+    calc_shelf_voltage(shelf);
+
+    // Print it at desired location
+    gfx_MoveTo(x_pos, y_pos);
+    flt_PRINT(volt_flt, "%-.0f");
+
+endfunc
+
+// Calculates the voltage given a 16 bit int for a shelf
+func calc_shelf_voltage(var shelf)
+
+    get_shelf(shelf);
+
+    var volt_int;
+    volt_int := shelf_ptr[0];
+
+    // Setting up float arrays
+    var volt_flt[2], temp_flt[2];
+
+    // Convert to float
+    flt_ITOF(volt_flt, volt_int);
+
+    // Create multiplication factor
+    flt_VAL(temp_flt, "0.02");
+
+    // (voltage = [0xUpperByte,0xLowerByte] * 0.02)
+    flt_MUL(shelf_volt, volt_flt, temp_flt);
+
+endfunc
+
+// Calculates the voltage given a 16 bit int for a mod
+func calc_mod_voltage(var volt_int)
+
+    // Setting up float arrays
+    var volt_flt[2], temp_flt[2];
+
+    // Convert to float
+    flt_ITOF(volt_flt, volt_int);
+
+    // Create multiplication factor
+    flt_VAL(temp_flt, "0.02");
+
+    // (voltage = [0xUpperByte,0xLowerByte] * 0.02)
+    flt_MUL(volt_mod, volt_flt, temp_flt);
+
+endfunc
+
+// Prints off the temperature given a 8+ bit int
+func print_temperature(var temp_int, var x_pos, var y_pos)
+
+    var temp_flt[2];
+
+    temp_flt := calc_temperature(temp_int);
+
+    gfx_MoveTo(x_pos, y_pos);
+    flt_PRINT(temp_flt, "%-.0f");
+
+endfunc
+
+// Calculates the temperature given an 8+ bit int
+func calc_temperature(var temp_int)
+
+    var temp_flt_1[2], temp_flt_2[2];
+
+    // Get the temperature
+    flt_VAL(temp_flt_1, "0.5");
+    flt_ITOF(temp_flt_2, temp_int);
+    flt_MUL(temp_flt_1, temp_flt_1, temp_flt_2);
+
+    return temp_flt_1;
+
+endfunc
+
+// ##################
+// Get/Set
+// ##################
+
+// Basic Shelf Get/Set
+// Sets the global shelf_ptr to 'shelf'
+func get_shelf(var shelf)
+
+    shelf_ptr := shelf0;
+
+endfunc
+
+// Updates the shelf_ptr shelf's info
+func set_shelf(var data)
+
+    shelf_ptr[0] := data[SHELF_V];
+    shelf_ptr[1] := data[SHELF_V + 1];
+    shelf_ptr[2] := data[SHELF_T];
+    shelf_ptr[3] := data[SHELF_H];
+    shelf_ptr[4] := data[SHELF_L];
+    shelf_ptr[5] := data[SHELF_ID];
+    shelf_ptr[6] := data[SHELF_A];
+    shelf_ptr[7] := data[SHELF_E];
+
+endfunc
+
+// Basic Mod Get/Set
+// Sets the global mod_ptr_1 to 'even' mod (0, 2, 4, ...)
+// Sets the global mod_ptr_2 to 'odd' mod (1, 3, 5, ...)
+func get_mods(var shelf, var mod)
+
+    var mods_per_shelf := 12;
+    mod_ptr_1 := mods[mod + (shelf * mods_per_shelf)];
+    mod_ptr_2 := mods[mod + (shelf * mods_per_shelf) + 1];
+
+endfunc
+
+// Updates the mod_ptr_1 & mod_ptr_2 mods' infos
+func set_mods(var data)
+
+    // Get the voltage
+    mod_ptr_1[0] := data[MOD_V];
+    mod_ptr_1[1] := data[MOD_V + 1];
+    mod_ptr_2[0] := data[MOD_V + 4];
+    mod_ptr_2[1] := data[MOD_V + 4 + 1];
+
+    // Get the temperature
+    mod_ptr_1[2] := data[MOD_T];
+    mod_ptr_2[2] := data[MOD_T + 4];
+
+    // Get the Alarm/Error
+    mod_ptr_1[3] := data[MOD_A];
+    mod_ptr_2[3] := data[MOD_A + 4];
+endfunc
+
+// ##################
+// Input/Output
+// ##################
+
+// === Input ===
+
+// Handles input messages
+func process_input()
+
+    var tmpByte;
+    var dataByteCount := 0x0F;
+    var temp_vals[15];
+    var shelf_number;
+    var mod_number;
+    var i;
+
+    if(com1_Count() > dataByteCount)
+
+        // Read in the first byte
+        // Should be START BYTE (0xAA)
+        tmpByte := serin1();
+
+        // Looking for the start of a message so...
+        // While tmpByte isn't the Start Byte
+        while(tmpByte != START_BYT)
+
+            // If there isn't enough data
+            // in the buffer for a full message
+            if(com1_Count() < dataByteCount)
+                return; // Leave function
+            endif
+
+            // Read in the next byte
+            tmpByte := serin1();
+
+        wend
+
+        // Give it  5msec to breath
+        pause(5);
+
+        // Read in vals from buffer into temp array
+        for(i := 0; i < dataByteCount; i++)
+            temp_vals[i] := serin1();
+        next
+
+        // If it's a shelf update message
+        if(temp_vals[TYPE] == 0xA0)
+
+            // See who the message is for
+            shelf_number := temp_vals[ID];
+
+            // Get their attention
+            get_shelf(shelf_number);
+
+            // Update their info
+            set_shelf(temp_vals);
+        endif
+
+        // If it's a mod update message
+        if((temp_vals[TYPE] & 0xB0) == 0xB0)
+
+            // See who the message is for
+            shelf_number := temp_vals[ID];
+            mod_number := ((temp_vals[TYPE] | 0xF0) & 0x0F);
+
+            // Get their attention
+            get_mods(shelf_number, mod_number);
+
+            // Update their info
+            set_mods(temp_vals);
+        endif
+    endif
+endfunc
+
+// === Output ===
+
+// Requests the basic module info
+// Sends out the "B#" command
+func request_mod(var shelf, var mod)
+
+    var cmd[7];
+    cmd[0] := 0x18;
+    cmd[1] := 0xEA;
+    cmd[2] := shelf;
+    cmd[3] := 0x0F;
+    cmd[4] := (0xB0) + (mod/2);
+    cmd[5] := 0xFF;
+    cmd[6] := 0x00;
+
+    var i;
+    for(i := 0; i < 7; i++)
+        serout1(cmd[i]);
+    next
+
+endfunc
+
+// Sends a request for all the mods on the current shelf
+func request_all_shelf_mods(var shelf)
+
+    var mods_per_shelf := 12;
+
+    var i;
+    for(i := 0; i < mods_per_shelf; i += 2)
+        // Send request for each mod on current shelf
+        request_mod(shelf, i);
+        // pause(5);
+    next
+endfunc
+
+func check_press()
+  var touch_state;//, n, x, y;
+  touch_state := touch_Get(TOUCH_STATUS); // get touchscreen status
+  //n := img_Touched(hndl,-1) ;
+
+  //-----------------------------------------------------------------------------------------
+  if(touch_state == TOUCH_RELEASED) // if there's a press
+    // Get the touched image and location
+    var touched_image, x_touch, y_touch;
+    touched_image := img_Touched(hndl, -1);
+    x_touch := touch_Get(TOUCH_GETX);
+    y_touch := touch_Get(TOUCH_GETY);
+    //x := touch_Get(TOUCH_GETX);
+    //y := touch_Get(TOUCH_GETY);
+
+    gfx_MoveTo(0, 50); // set glb_X1 and glb_Y1 to required co-ordinate
+    print("x: ", x_touch, " \n");
+    print("y: ", y_touch, " \n");
+
+    gfx_MoveTo(0, 0);
+    print(touched_image, " ");
+
+    if ((x_touch>0)&&(x_touch<100)&&(y_touch>100)&&(y_touch<200))
+      gfx_MoveTo(0, 200);
+      print("area is pressed");
+    else
+      gfx_MoveTo(0, 200);
+      print(" ");
+    endif
+
+    //if((x_touch>660)&&(y_touch>265)&&(y_touch<340))
+     if(touched_image == iShelf_btn)
+    print("SDLKFJSD");
+    pause(2000);
+      current_form := SHELF_FORM;
+      //disable_all_inputs();
+      draw_shelf_form();
+      print("YAY!");
+      pause(200);
+      //return;
+    endif
+
+    if(touched_image == iShelfToMain_btn)
+        current_form := OVERVIEW_FORM;
+        disable_all_inputs();
+        draw_overall_form();
+        //return;
+      endif
+    endif
+
+                                                                       
+endfunc
+
+func disable_all_inputs()
+
+  img_SetAttributes(hndl, -1, I_TOUCH_DISABLE);
+
+endfunc
+

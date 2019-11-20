@@ -1,0 +1,8 @@
+// ##################
+// Headers
+// ##################
+
+#platform "Gen4-uLCD-70DT"
+#inherit "4DGL_16bitColours.fnc"
+#inherit "VisualConst.inc"
+#inherit "CERDECConst.inc"

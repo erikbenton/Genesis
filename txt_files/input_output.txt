@@ -1,0 +1,119 @@
+// ##################
+// Input/Output
+// ##################
+
+// === Initialize ===
+
+func setup_comms()
+
+    com1_Init(rx_buffer, BUF_SIZE, 0);
+    com_SetBaud(COM1, BAUD);
+    COM1_TX_pin(PA4);
+    COM1_RX_pin(PA5);
+
+endfunc
+
+// === Input ===
+
+// Handles input messages
+func process_input()
+
+    var tmpByte;
+    var dataByteCount := 0x0F;
+    var temp_vals[15];
+    var shelf_number;
+    var mod_number;
+    var i;
+
+    if(com1_Count() > dataByteCount)
+        
+        // Read in the first byte
+        // Should be START BYTE (0xAA)
+        tmpByte := serin1();
+
+        // Looking for the start of a message so...
+        // While tmpByte isn't the Start Byte
+        while(tmpByte != START_BYT)
+
+            // If there isn't enough data
+            // in the buffer for a full message
+            if(com1_Count() < dataByteCount)
+                return; // Leave function
+            endif
+
+            // Read in the next byte
+            tmpByte := serin1();
+
+        wend
+
+        // Give it  5msec to breath
+        pause(5);
+
+        // Read in vals from buffer into temp array
+        for(i := 0; i < dataByteCount; i++)
+            temp_vals[i] := serin1();
+        next
+        
+        // If it's a shelf update message
+        if(temp_vals[TYPE] == 0xA0)
+            
+            // See who the message is for
+            shelf_number := temp_vals[ID];
+
+            // Get their attention
+            get_shelf(shelf_number);
+
+            // Update their info
+            set_shelf(temp_vals);
+        endif
+
+        // If it's a mod update message
+        if((temp_vals[TYPE] & 0xB0) == 0xB0)
+            
+            // See who the message is for
+            shelf_number := temp_vals[ID];
+            mod_number := ((temp_vals[TYPE] | 0xF0) & 0x0F);
+            
+            // Get their attention
+            get_mods(shelf_number, mod_number);
+            
+            // Update their info
+            set_mods(temp_vals);          
+        endif
+    endif
+endfunc
+
+// === Output ===
+
+// Requests the basic module info
+// Sends out the "B#" command
+func request_mod(var shelf, var mod)
+
+    var cmd[7];
+    cmd[0] := 0x18;
+    cmd[1] := 0xEA;
+    cmd[2] := shelf;
+    cmd[3] := 0x0F;
+    cmd[4] := (0xB0) + (mod/2);
+    cmd[5] := 0xFF;
+    cmd[6] := 0x00;
+
+    var i;
+    for(i := 0; i < 7; i++)
+        serout1(cmd[i]);
+    next
+
+endfunc
+
+// Sends a request for all the mods on the current shelf
+func request_all_shelf_mods(var shelf)
+
+    var mods_per_shelf := 9;
+
+    var i;
+    for(i := 0; i < mods_per_shelf; i += 2)
+        // Send request for each mod on current shelf
+        request_mod(shelf, i);
+        // pause(5);
+    next
+endfunc

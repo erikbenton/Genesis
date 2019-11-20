@@ -1,0 +1,204 @@
+func check_press()
+
+  var touch_state;
+  touch_state := touch_Get(TOUCH_STATUS);
+
+  if(touch_state == TOUCH_RELEASED)
+    
+    // Get the touched image and location
+    var touched_image, x_touch, y_touch;
+    touched_image := img_Touched(hndl, -1);
+    x_touch := touch_Get(TOUCH_GETX);
+    y_touch := touch_Get(TOUCH_GETY);
+
+    // If we are looking at the overview screen
+    if(current_form == OVERVIEW_FORM)
+
+      var mode_index, off, idle, voltage, power;
+      mode_index := 1;
+      off := 0;
+      idle := 1;
+      voltage := 2;
+      power := 3;
+
+      if(touched_image == iShelf_btn)
+        current_form := SHELF_FORM;
+        current_mod := 0;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      // Radio Buttons for System Mode
+
+      // Off
+      if((x_touch > 25 - 10) && (x_touch < 25 + 10) && (y_touch > 215 - 10) && (y_touch < 215 + 10))
+        if(system[mode_index] != off)
+          system[mode_index] := off;
+          draw_system_mode_radios();
+        endif
+      endif
+
+      // Idle
+      if((x_touch > 25 - 10) && (x_touch < 25 + 10) && (y_touch > 250 - 10) && (y_touch < 250 + 10))
+        if(system[mode_index] != idle)
+          system[mode_index] := idle;
+          draw_system_mode_radios();
+        endif
+      endif
+
+      // Voltage
+      if((x_touch > 100 - 10) && (x_touch < 100 + 10) && (y_touch > 215 - 10) && (y_touch < 215 + 10))
+        if(system[mode_index] != voltage)
+          system[mode_index] := voltage;
+          draw_system_mode_radios();
+        endif
+      endif
+
+      // Voltage
+      if((x_touch > 100 - 10) && (x_touch < 100 + 10) && (y_touch > 250 - 10) && (y_touch < 250 + 10))
+        if(system[mode_index] != power)
+          system[mode_index] := power;
+          draw_system_mode_radios();
+        endif
+      endif
+
+      // Reset Number of Discharges
+      if(touched_image == iResetDischarges_btn)
+        num_discharges := 0;
+        draw_num_discharges();
+      endif
+
+      // Individual Module Buttons
+
+      if(touched_image == iMainModule1Good_btn || touched_image == iMainModule1Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 0;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule2Good_btn || touched_image == iMainModule2Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 1;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule3Good_btn || touched_image == iMainModule3Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 2;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule4Good_btn || touched_image == iMainModule4Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 3;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule5Good_btn || touched_image == iMainModule5Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 4;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule6Good_btn || touched_image == iMainModule6Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 5;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule7Good_btn || touched_image == iMainModule7Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 6;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule8Good_btn || touched_image == iMainModule8Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 7;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+      if(touched_image == iMainModule9Good_btn || touched_image == iMainModule9Bad_btn)
+        current_form := SHELF_FORM;
+        current_mod := 8;
+        disable_all_inputs();
+        draw_shelf_form(current_mod);
+      endif
+
+    endif
+
+    // If we are looking at the shelf form
+    if(current_form == SHELF_FORM)
+
+      if(touched_image == iShelfToMain_btn)
+        current_form := OVERVIEW_FORM;
+        disable_all_inputs();
+        draw_overall_form();
+      endif
+
+      // Individual Module Buttons
+
+      if(touched_image == iModule1Good_btn || touched_image == iModule1Bad_btn)
+        current_mod := 0;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule2Good_btn || touched_image == iModule2Bad_btn)
+        current_mod := 1;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule3Good_btn || touched_image == iModule3Bad_btn)
+        current_mod := 2;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule4Good_btn || touched_image == iModule4Bad_btn)
+        current_mod := 3;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule5Good_btn || touched_image == iModule5Bad_btn)
+        current_mod := 4;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule6Good_btn || touched_image == iModule6Bad_btn)
+        current_mod := 5;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule7Good_btn || touched_image == iModule7Bad_btn)
+        current_mod := 6;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule8Good_btn || touched_image == iModule8Bad_btn)
+        current_mod := 7;
+        update_shelf_mod(current_mod);
+      endif
+
+      if(touched_image == iModule9Good_btn || touched_image == iModule9Bad_btn)
+        current_mod := 8;
+        update_shelf_mod(current_mod);
+      endif
+
+    endif
+
+  endif
+
+endfunc
+
+func disable_all_inputs()
+
+  img_SetAttributes(hndl, -1, I_TOUCH_DISABLE);
+
+endfunc
