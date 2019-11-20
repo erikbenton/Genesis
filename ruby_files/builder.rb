@@ -13,10 +13,10 @@
 def builder
   # Files in the order to add to the code
   files = ["headers.txt", "constants.txt", "structures.txt", "variables.txt",
-          "main.txt", "drawing_functions.txt", "math.txt",
+          "main.txt", "math.txt",
           "get_set.txt", "input_output.txt", "presses.txt"]
   path_to_files = "../txt_files/"
-  final_file = File.open("../cerdec.txt", "w")
+  final_file = File.open("../genesis.txt", "w")
   files.each do |file|
     current_file = File.open(path_to_files + file, "r")
     file_data = current_file.readlines

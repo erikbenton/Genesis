@@ -1,0 +1,331 @@
+==============================================================
+==============================================================
+4DGL Compiler 2.8.1.0 -- Copyright 2004-2016 4D Labs
+** C:\Users\ebenton\Documents\Genesis\touchscreen_files\GENESIS.4dg
+compiled Wed Nov 20 14:26:16 2019
+
+==============================================================
+==============================================================
+
+
+No Ref for file
+[LINKING]
+function 18, disable_all_inputs, address 0x60, stack usage 0 + 4 
+
+voltage                                8  word     [local]  (usage 6)
+touch_state                            1  word     [local]  (usage 4)
+touched_image                          2  word     [local]  (usage 80)
+y_touch                                4  word     [local]  (usage 18)
+x_touch                                3  word     [local]  (usage 18)
+power                                  9  word     [local]  (usage 6)
+mode_index                             5  word     [local]  (usage 18)
+idle                                   7  word     [local]  (usage 6)
+off                                    6  word     [local]  (usage 6)
+
+[LINKING]
+function 16, request_all_shelf_mods, address 0x6e, stack usage 4 + 4 
+i                                      2  word     [local]  (usage 12)
+mods_per_shelf                         1  word     [local]  (usage 4)
+shelf                                  1  word     [arg]  (usage 3)
+
+[LINKING]
+function 15, request_mod, address 0xa2, stack usage 16 + 4 
+cmd                                    1  word[7]  [local]  (usage 24)
+mod                                    1  word     [arg]  (usage 3)
+i                                      8  word     [local]  (usage 12)
+shelf                                  1  word     [arg]  (usage 3)
+
+tmpByte                                1  word     [local]  (usage 6)
+dataByteCount                          2  word     [local]  (usage 6)
+mod_number                            19  word     [local]  (usage 4)
+shelf_number                          18  word     [local]  (usage 8)
+temp_vals                              3  word[15]  [local]  (usage 16)
+i                                     20  word     [local]  (usage 8)
+
+[LINKING]
+function 13, setup_comms, address 0xff, stack usage 0 + 4 
+
+[LINKING]
+function 12, set_mods, address 0x129, stack usage 0 + 4 
+data                                   1  word     [arg]  (usage 24)
+
+[LINKING]
+function 11, get_mods, address 0x1a4, stack usage 2 + 4 
+mod                                    1  word     [arg]  (usage 6)
+mods_per_shelf                         1  word     [local]  (usage 7)
+shelf                                  1  word     [arg]  (usage 6)
+
+[LINKING]
+function 10, set_shelf, address 0x1ce, stack usage 0 + 4 
+data                                   1  word     [arg]  (usage 24)
+
+[LINKING]
+function 9, get_shelf, address 0x23a, stack usage 0 + 4 
+
+[LINKING]
+function 8, calc_temperature, address 0x241, stack usage 8 + 4 
+temp_int                               1  word     [arg]  (usage 3)
+temp_flt_1                             1  word[2]  [local]  (usage 12)
+temp_flt_2                             3  word[2]  [local]  (usage 6)
+
+temp_flt                               1  word[2]  [local]  (usage 4)
+temp_int                               1  word     [arg]  (usage 2)
+x_pos                                  1  word     [arg]  (usage 2)
+y_pos                                  2  word     [arg]  (usage 2)
+
+temp_flt                               3  word[2]  [local]  (usage 4)
+volt_flt                               1  word[2]  [local]  (usage 4)
+volt_int                               1  word     [arg]  (usage 2)
+
+[LINKING]
+function 5, calc_shelf_voltage, address 0x265, stack usage 10 + 4 
+temp_flt                               4  word[2]  [local]  (usage 6)
+volt_flt                               2  word[2]  [local]  (usage 6)
+volt_int                               1  word     [local]  (usage 6)
+shelf                                  1  word     [arg]  (usage 3)
+
+x_pos                                  1  word     [arg]  (usage 2)
+volt_flt                               1  word[2]  [local]  (usage 2)
+y_pos                                  2  word     [arg]  (usage 2)
+shelf                                  1  word     [arg]  (usage 2)
+
+[LINKING]
+function 3, calc_system_voltage, address 0x29b, stack usage 6 + 4 
+sys_volt                               1  word[2]  [local]  (usage 12)
+i                                      3  word     [local]  (usage 12)
+
+sys_volt                               1  word[2]  [local]  (usage 4)
+x_pos                                  1  word     [arg]  (usage 2)
+y_pos                                  1  word     [arg]  (usage 2)
+
+[LINKING]
+function 1, main(main entry point), address 0x2f6, stack usage 2 + 4 
+current_shelf                          1  word     [local]  (usage 4)
+
+[RESERVED WORDS]
+#inherit
+#LISTCODE
+#MODE
+#STACK
+#OPTIMIZE_ON
+#OPTIMIZE_OFF
+byte
+word
+dword
+float
+private
+#IF
+#IFNOT
+#ELSE
+#ENDIF
+#CONST
+#constant
+#USE
+USING
+func
+endfunc
+var
+#STOP
+#DATA
+#ASM
+#END
+#platform
+EXISTS
+#ERROR
+#MESSAGE
+#NOTICE
+sizeof
+argcount
+if
+else
+endif
+while
+wend
+repeat
+until
+forever
+return
+break
+continue
+for
+next
+switch
+case
+default
+endswitch
+print
+goto
+gosub
+endsub
+mcall
+lookup8
+lookup16
+
+[MACRO]
+
+[CONSTANTS]
+__MAXMEM                          00008000      32768  (usage 1)
+__MAXPROG                         00007FEE      32750  (usage 1)
+BAUD                              00004E20      20000  (usage 3)
+BLACK                             00000000          0  (usage 3)
+BUF_SIZE                          00000100        256  (usage 6)
+COM1                              0000F805      63493  (usage 3)
+DIABLO                            00000003          3  (usage 3)
+I_TOUCH_DISABLE                   00000020         32  (usage 3)
+ID                                00000003          3  (usage 4)
+iMainModule1Bad_btn               00000053         83  (usage 2)
+iMainModule2Bad_btn               00000054         84  (usage 2)
+iMainModule3Bad_btn               00000055         85  (usage 2)
+iMainModule4Bad_btn               00000056         86  (usage 2)
+iMainModule5Bad_btn               00000057         87  (usage 2)
+iMainModule6Bad_btn               00000058         88  (usage 2)
+iMainModule7Bad_btn               00000059         89  (usage 2)
+iMainModule8Bad_btn               0000005A         90  (usage 2)
+iMainModule9Bad_btn               0000005B         91  (usage 2)
+iModule1Bad_btn                   0000004A         74  (usage 2)
+iModule1Good_btn                  00000021         33  (usage 2)
+iModule2Bad_btn                   0000004F         79  (usage 2)
+iModule2Good_btn                  00000027         39  (usage 2)
+iModule3Bad_btn                   00000050         80  (usage 2)
+iModule3Good_btn                  0000002A         42  (usage 2)
+iModule4Bad_btn                   0000004B         75  (usage 2)
+iModule4Good_btn                  00000025         37  (usage 2)
+iModule5Bad_btn                   0000004E         78  (usage 2)
+iModule5Good_btn                  00000028         40  (usage 2)
+iModule6Bad_btn                   00000051         81  (usage 2)
+iModule6Good_btn                  0000002B         43  (usage 2)
+iModule7Bad_btn                   0000004C         76  (usage 2)
+iModule7Good_btn                  00000026         38  (usage 2)
+iModule8Bad_btn                   0000004D         77  (usage 2)
+iModule8Good_btn                  00000029         41  (usage 2)
+iModule9Bad_btn                   00000052         82  (usage 2)
+iModule9Good_btn                  0000002C         44  (usage 2)
+iResetDischarges_btn              00000009          9  (usage 2)
+iShelfToMain_btn                  00000024         36  (usage 2)
+LANDSCAPE                         00000000          0  (usage 3)
+LIMEGREEN                         00003666      13926  (usage 3)
+MOD_A                             00000007          7  (usage 6)
+MOD_FORM                          00000002          2  (usage 3)
+MOD_T                             00000006          6  (usage 6)
+MOD_V                             00000004          4  (usage 12)
+OVERVIEW_FORM                     00000000          0  (usage 7)
+PA4                               00000005          5  (usage 3)
+PA5                               00000006          6  (usage 3)
+RED                               0000F800      63488  (usage 3)
+SCREEN_MODE                       00000017         23  (usage 3)
+SHELF_A                           00000000          0  (usage 3)
+SHELF_E                           00000000          0  (usage 3)
+SHELF_FORM                        00000001          1  (usage 25)
+SHELF_H                           00000000          0  (usage 3)
+SHELF_ID                          00000000          0  (usage 3)
+SHELF_L                           00000000          0  (usage 3)
+SHELF_T                           00000000          0  (usage 3)
+SHELF_V                           00000000          0  (usage 6)
+START_BYT                         00000018         24  (usage 2)
+TOUCH_ENABLE                      00000000          0  (usage 3)
+TOUCH_GETX                        00000001          1  (usage 2)
+TOUCH_GETY                        00000002          2  (usage 2)
+TOUCH_RELEASED                    00000002          2  (usage 2)
+TOUCH_STATUS                      00000000          0  (usage 2)
+TYPE                              00000002          2  (usage 6)
+
+[PmmC FUNCTIONS]
+com1_Count                        FFFFFF07        -249  args=0 r=1  (usage 4)
+com1_Init                         FFFFFF17        -233  args=3 r=0  (usage 3)
+COM1_RX_pin                       FFFFFF1E        -226  args=1 r=1  (usage 3)
+COM1_TX_pin                       FFFFFF1B        -229  args=1 r=1  (usage 3)
+com_SetBaud                       FFFFFF1F        -225  args=2 r=1  (usage 3)
+file_LoadImageControl             FFFFFE3D        -451  args=3 r=1  (usage 3)
+file_Mount                        FFFFFE3C        -452  args=0 r=1  (usage 6)
+flt_ADD                           FFFFFF9F         -97  args=3 r=1  (usage 3)
+flt_ITOF                          FFFFFFB1         -79  args=2 r=1  (usage 8)
+flt_MUL                           FFFFFF9D         -99  args=3 r=1  (usage 8)
+flt_PRINT                         FFFFFFAD         -83  args=2 r=1  (usage 6)
+flt_VAL                           FFFFFFB2         -78  args=2 r=1  (usage 11)
+gfx_Cls                           FFFFFF82        -126  args=0 r=0  (usage 3)
+gfx_MoveTo                        FFFFFF81        -127  args=2 r=0  (usage 6)
+gfx_Set                           FFFFFF83        -125  args=2 r=0  (usage 3)
+img_SetAttributes                 FFFFFE82        -382  args=3 r=1  (usage 3)
+img_Touched                       FFFFFE80        -384  args=2 r=1  (usage 2)
+pause                             FFFFFFFA          -6  args=1 r=0  (usage 11)
+putstr                            FFFFFFF7          -9  args=1 r=1  (usage 6)
+serin1                            FFFFFF13        -237  args=0 r=1  (usage 6)
+serout1                           FFFFFF0F        -241  args=1 r=0  (usage 3)
+touch_Get                         FFFFFE68        -408  args=1 r=1  (usage 6)
+touch_Set                         FFFFFE69        -407  args=1 r=0  (usage 3)
+
+[USER FUNCTIONS]
+calc_shelf_voltage                00000265  args=1 r=0  (usage 5)
+calc_system_voltage               0000029B  args=0 r=0  (usage 2)
+calc_temperature                  00000241  args=1 r=0  (usage 2)
+disable_all_inputs                00000060  args=0 r=0  (usage 22)
+get_mods                          000001A4  args=2 r=0  (usage 2)
+get_shelf                         0000023A  args=1 r=0  (usage 5)
+request_all_shelf_mods            0000006E  args=1 r=0  (usage 3)
+request_mod                       000000A2  args=2 r=0  (usage 3)
+set_mods                          00000129  args=1 r=0  (usage 2)
+set_shelf                         000001CE  args=1 r=0  (usage 2)
+setup_comms                       000000FF  args=0 r=0  (usage 3)
+
+[GLOBAL VARIABLES]
+current_form                         123  word       (usage 33)
+current_mod                          124  word       (usage 77)
+hndl                                   1  word       (usage 8)
+mod0                                  36  word[8]   (usage 2)
+mod1                                  44  word[8]   (usage 2)
+mod2                                  52  word[8]   (usage 2)
+mod3                                  60  word[8]   (usage 2)
+mod4                                  68  word[8]   (usage 2)
+mod5                                  76  word[8]   (usage 2)
+mod6                                  84  word[8]   (usage 2)
+mod7                                  92  word[8]   (usage 2)
+mod8                                 100  word[8]   (usage 2)
+mod_ptr_1                            117  word       (usage 15)
+mod_ptr_2                            118  word       (usage 15)
+mods                                 108  word[9]   (usage 6)
+num_discharges                       125  word       (usage 3)
+rx_buffer                            126  word[256]   (usage 3)
+shelf0                                18  word[13]   (usage 3)
+shelf_ptr                             31  word       (usage 30)
+shelf_volt                            32  word[2]   (usage 6)
+system                                 2  word[16]   (usage 16)
+
+[PRIVATE VARIABLES]
+
+[DATA]
+0007: 24 00 2C 00 34 00 3C 00 44 00 4C 00 54 00 5C 00     $.,.4.<.D.L.T.\.
+0017: 64 00 30 2E 35 00 30 2E 30 32 00 30 2E 30 00 4D     d.0.5.0.02.0.0.M
+0027: 6F 75 6E 74 69 6E 67 2E 2E 2E 0A 00 44 72 69 76     ounting.....Driv
+0037: 65 20 6E 6F 74 20 6D 6F 75 6E 74 65 64 2E 2E 2E     e not mounted...
+0047: 00 47 45 4E 45 53 49 53 2E 64 61 74 00 47 45 4E     .GENESIS.dat.GEN
+0057: 45 53 49 53 2E 67 63 69 00                          ESIS.gci.
+
+[__MAXPROG]
+32750
+[__MAXMEM]
+32768
+
+[PROGRAM]
+main
+[CODESIZE]
+904
+[MEMSIZE]
+381
+[ARGCOUNT]
+0
+[RETURNS]
+NO
+[STACKSIZE]
+0 (AUTO)
+[STACK_ESTIMATE]
+120   (nb:- worst case estimate)
+[MODE]
+0
+
+[PROJECT]
+C:\Users\ebenton\Documents\Genesis\touchscreen_files\GENESIS.4dg
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Gen4-uLCD-70DT.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\Diablo16_Functions.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\4DGL_16bitColours.fnc
+C:\Program Files (x86)\4D Labs\4D Workshop 4 IDE\include\VisualConst.inc
+C:\Users\ebenton\Documents\Genesis\touchscreen_files\GENESIS.4DWork\GENESISConst.inc

@@ -1,5 +1,5 @@
 ﻿Version     0.0
-Platform    Gen4-uLCD-70DT-L
+Platform    Gen4-uLCD-70DT-AR-L
 PlatRes     480x800
 Depends
 end
@@ -37,7 +37,7 @@ Form
     Name                         OverallStatus_Form
     Alias                        OverallStatus_Form
     Bgtype                       Color
-    Color                        'Office 2003 (Blue)'
+    Color                        CORNFLOWERBLUE
     Image                        (None)
     Source.Height                0
     Source.Left                  0
@@ -64,28 +64,9 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         12
-    Top                          96
+    Top                          86
     Transparent                  Yes
     Width                        155
-    WordWrap                     Yes
-end
-StaticText
-    Name                         SystemMode_Title
-    Alias                        SystemMode_Title
-    Alignment                    Left
-    AutoSize                     Yes
-    Caption                      'System Mode'
-    Color                        'Office 2003 (Blue)'
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    18
-    Font.Style                   []
-    Height                       29
-    Left                         12
-    Top                          166
-    Transparent                  No
-    Width                        143
     WordWrap                     Yes
 end
 StaticText
@@ -102,7 +83,7 @@ StaticText
     Font.Style                   []
     Height                       29
     Left                         12
-    Top                          284
+    Top                          171
     Transparent                  Yes
     Width                        69
     WordWrap                     Yes
@@ -121,7 +102,7 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         12
-    Top                          324
+    Top                          219
     Transparent                  Yes
     Width                        170
     WordWrap                     Yes
@@ -140,28 +121,9 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         260
-    Top                          96
+    Top                          86
     Transparent                  Yes
     Width                        211
-    WordWrap                     Yes
-end
-StaticText
-    Name                         MaxTime_Label
-    Alias                        MaxTime_Label
-    Alignment                    Left
-    AutoSize                     No
-    Caption                      'Time at Max (secs)'
-    Color                        BLACK
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    18
-    Font.Style                   []
-    Height                       30
-    Left                         260
-    Top                          183
-    Transparent                  Yes
-    Width                        238
     WordWrap                     Yes
 end
 StaticText
@@ -178,7 +140,7 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         260
-    Top                          225
+    Top                          131
     Transparent                  Yes
     Width                        207
     WordWrap                     Yes
@@ -197,7 +159,7 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         260
-    Top                          277
+    Top                          173
     Transparent                  Yes
     Width                        223
     WordWrap                     Yes
@@ -216,7 +178,7 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         260
-    Top                          318
+    Top                          214
     Transparent                  Yes
     Width                        248
     WordWrap                     Yes
@@ -235,7 +197,7 @@ StaticText
     Font.Style                   []
     Height                       30
     Left                         260
-    Top                          359
+    Top                          255
     Transparent                  Yes
     Width                        220
     WordWrap                     Yes
@@ -250,21 +212,8 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          129
+    Top                          119
     Width                        65
-end
-Panel
-    Name                         Panel5
-    Alias                        Panel5
-    Color                        WHITE
-    Height                       35
-    Left                         516
-    Outlined                     No
-    OutlineColor                 WHITE
-    Pattern                      Fine
-    State                        Lowered
-    Top                          181
-    Width                        108
 end
 WinButton
     Name                         SystemStart_btn
@@ -324,7 +273,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          222
+    Top                          128
     Width                        108
 end
 Panel
@@ -337,7 +286,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          275
+    Top                          171
     Width                        108
 end
 Panel
@@ -350,7 +299,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          316
+    Top                          212
     Width                        108
 end
 Panel
@@ -363,7 +312,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          96
+    Top                          86
     Width                        108
 end
 Panel
@@ -376,7 +325,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          357
+    Top                          253
     Width                        108
 end
 Panel
@@ -389,7 +338,7 @@ Panel
     OutlineColor                 WHITE
     Pattern                      Fine
     State                        Lowered
-    Top                          360
+    Top                          255
     Width                        65
 end
 WinButton
@@ -433,53 +382,8 @@ WinButton
     StatusWhenOn.Size            8
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
-    Top                          357
+    Top                          252
     Width                        103
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-Gauge
-    Name                         StoredEnergy_Gauge
-    Alias                        StoredEnergy_Gauge
-    Bevel.BorderColor            clBtnFace
-    Bevel.BorderWidth            0
-    Bevel.InnerColor             BLACK
-    Bevel.InnerHighlight         clBtnHighlight
-    Bevel.InnerOutline           None
-    Bevel.InnerShadow            clBtnShadow
-    Bevel.InnerSpace             1
-    Bevel.InnerStyle             Lowered
-    Bevel.Innerwidth             2
-    Bevel.OuterColor             clBtnFace
-    Bevel.OuterHighlight         clBtnHighlight
-    Bevel.OuterOutline           Outer
-    Bevel.OuterShadow            clBtnShadow
-    Bevel.OuterSpace             0
-    Bevel.OuterStyle             Raised
-    Bevel.Outerwidth             1
-    Bevel.Visible                Yes
-    Color                        WHITE
-    Height                       30
-    Left                         260
-    Maxvalue                     100
-    Minvalue                     0
-    Orientation                  Horizontal
-    Palette1.High                RED
-    Palette1.Low                 0x005100
-    Palette2.High                clYellow
-    Palette2.Low                 0x005151
-    Palette3.High                LIME
-    Palette3.Low                 0x000051
-    Percent1                     50
-    Percent2                     75
-    Spacing                      5
-    Step                         5
-    Style                        BottomLeft
-    TickHeight                   1
-    Top                          136
-    Width                        206
     OnChanged                    ''
     OnTouchMoving                ''
     OnTouchPressed               ''
@@ -538,611 +442,19 @@ StaticText
     Alias                        CERDEC_Title
     Alignment                    Left
     AutoSize                     Yes
-    Caption                      'CERDEC Energy Storage Unit'
+    Caption                      'Genesis Project'
     Color                        BLACK
     Font.Color                   BLACK
     Font.Effects                 []
     Font.Name                    Tahoma
     Font.Size                    36
     Font.Style                   []
-    Height                       62
-    Left                         86
-    Top                          21
+    Height                       58
+    Left                         238
+    Top                          7
     Transparent                  Yes
-    Width                        628
+    Width                        323
     WordWrap                     Yes
-end
-WinButton
-    Name                         Shelf_btn
-    Alias                        Shelf_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      SHELF
-    Color                        SILVER
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    18
-    Font.Style                   []
-    Height                       75
-    Left                         659
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          265
-    Width                        117
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule3Good_btn
-    Alias                        MainModule3Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      3
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         149
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule2Good_btn
-    Alias                        MainModule2Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      2
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         81
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule1Good_btn
-    Alias                        MainModule1Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      1
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         12
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule4Good_btn
-    Alias                        MainModule4Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      4
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         217
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule5Good_btn
-    Alias                        MainModule5Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      5
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         284
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule6Good_btn
-    Alias                        MainModule6Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      6
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         352
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule7Good_btn
-    Alias                        MainModule7Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      7
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         421
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule8Good_btn
-    Alias                        MainModule8Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      8
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         490
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-WinButton
-    Name                         MainModule9Good_btn
-    Alias                        MainModule9Good_btn
-    Appearance.Alignment         Center
-    Appearance.Layout            Left
-    Appearance.PictureAlignment  Right
-    Appearance.SimpleLayout      No
-    Appearance.Spacing           3
-    AutoSizeToPicture            No
-    Bevel                        Yes
-    BevelColor                   BLACK
-    Caption                      9
-    Color                        LIMEGREEN
-    Font.Color                   clWindowText
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    12
-    Font.Style                   []
-    Height                       38
-    Left                         559
-    Matrix                       -1
-    Momentary                    Yes
-    Picture                      (None)
-    StatusWhenOff.BGcolor        RED
-    StatusWhenOff.Caption        ''
-    StatusWhenOff.Glow           Yes
-    StatusWhenOff.Color          WHITE
-    StatusWhenOff.Effects        []
-    StatusWhenOff.Name           Tahoma
-    StatusWhenOff.Size           8
-    StatusWhenOff.Style          []
-    StatusWhenOff.Visible        Yes
-    StatusWhenOn.BGcolor         RED
-    StatusWhenOn.Caption         ''
-    StatusWhenOn.Glow            Yes
-    StatusWhenOn.Color           WHITE
-    StatusWhenOn.Effects         []
-    StatusWhenOn.Name            Tahoma
-    StatusWhenOn.Size            8
-    StatusWhenOn.Style           []
-    StatusWhenOn.Visible         Yes
-    Top                          424
-    Width                        65
-    OnChanged                    ''
-    OnTouchMoving                ''
-    OnTouchPressed               ''
-    OnTouchReleased              ''
-end
-Circle
-    Name                         SystemIdle_cbox
-    Alias                        SystemIdle_cbox
-    Color                        'Office 2003 Classic'
-    Filled                       Yes
-    Rad                          10
-    X                            25
-    Y                            250
-end
-Circle
-    Name                         SystemOff_cbox
-    Alias                        SystemOff_cbox
-    Color                        'Office 2003 Classic'
-    Filled                       Yes
-    Rad                          10
-    X                            25
-    Y                            215
-end
-StaticText
-    Name                         SystemOff_Label
-    Alias                        SystemOff_Label
-    Alignment                    Left
-    AutoSize                     Yes
-    Caption                      Off
-    Color                        BLACK
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    14
-    Font.Style                   []
-    Height                       23
-    Left                         40
-    Top                          205
-    Transparent                  Yes
-    Width                        25
-    WordWrap                     Yes
-end
-StaticText
-    Name                         SystemIdle_Label
-    Alias                        SystemIdle_Label
-    Alignment                    Left
-    AutoSize                     Yes
-    Caption                      Idle
-    Color                        BLACK
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    14
-    Font.Style                   []
-    Height                       23
-    Left                         40
-    Top                          240
-    Transparent                  Yes
-    Width                        32
-    WordWrap                     Yes
-end
-Circle
-    Name                         SystemPower_cboc
-    Alias                        SystemPower_cboc
-    Color                        'Office 2003 Classic'
-    Filled                       Yes
-    Rad                          10
-    X                            100
-    Y                            250
-end
-Circle
-    Name                         SystemVoltage_cbox
-    Alias                        SystemVoltage_cbox
-    Color                        'Office 2003 Classic'
-    Filled                       Yes
-    Rad                          10
-    X                            100
-    Y                            215
-end
-StaticText
-    Name                         SystemVoltage_Label
-    Alias                        SystemVoltage_Label
-    Alignment                    Left
-    AutoSize                     Yes
-    Caption                      Voltage
-    Color                        BLACK
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    14
-    Font.Style                   []
-    Height                       23
-    Left                         115
-    Top                          205
-    Transparent                  Yes
-    Width                        62
-    WordWrap                     Yes
-end
-StaticText
-    Name                         SystemPower_Label
-    Alias                        SystemPower_Label
-    Alignment                    Left
-    AutoSize                     Yes
-    Caption                      Power
-    Color                        BLACK
-    Font.Color                   BLACK
-    Font.Effects                 []
-    Font.Name                    Tahoma
-    Font.Size                    14
-    Font.Style                   []
-    Height                       23
-    Left                         115
-    Top                          240
-    Transparent                  Yes
-    Width                        51
-    WordWrap                     No
 end
 Circle
     Name                         RelayBackground_LED
@@ -1150,8 +462,8 @@ Circle
     Color                        'Office 2007 (Obsidian)'
     Filled                       Yes
     Rad                          18
-    X                            111
-    Y                            298
+    X                            113
+    Y                            185
 end
 WinButton
     Name                         EmergencyStop_btn
@@ -1242,7 +554,7 @@ WinButton
     StatusWhenOn.Size            8
     StatusWhenOn.Style           []
     StatusWhenOn.Visible         Yes
-    Top                          127
+    Top                          117
     Width                        103
     OnChanged                    ''
     OnTouchMoving                ''
@@ -1255,21 +567,300 @@ Circle
     Color                        LIMEGREEN
     Filled                       Yes
     Rad                          17
-    X                            111
-    Y                            298
+    X                            113
+    Y                            185
 end
 Panel
     Name                         !Panel3
     Alias                        !Panel3
-    Color                        'Office 2003 (Blue)'
-    Height                       84
-    Left                         8
-    Outlined                     Yes
-    OutlineColor                 SILVER
-    Pattern                      Solid
+    Color                        CORNFLOWERBLUE
+    Height                       146
+    Left                         24
+    Outlined                     No
+    OutlineColor                 WHITE
+    Pattern                      Fine
     State                        Lowered
-    Top                          188
-    Width                        176
+    Top                          327
+    Width                        258
+end
+Panel
+    Name                         !1Panel3
+    Alias                        !1Panel3
+    Color                        CORNFLOWERBLUE
+    Height                       146
+    Left                         332
+    Outlined                     No
+    OutlineColor                 WHITE
+    Pattern                      Fine
+    State                        Lowered
+    Top                          326
+    Width                        258
+end
+StaticText
+    Name                         Statictext1
+    Alias                        Statictext1
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      'Module 1'
+    Color                        CORNFLOWERBLUE
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    18
+    Font.Style                   []
+    Height                       29
+    Left                         32
+    Top                          309
+    Transparent                  No
+    Width                        97
+    WordWrap                     No
+end
+StaticText
+    Name                         Statictext2
+    Alias                        Statictext2
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      'Module 2'
+    Color                        CORNFLOWERBLUE
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    18
+    Font.Style                   []
+    Height                       29
+    Left                         340
+    Top                          309
+    Transparent                  No
+    Width                        97
+    WordWrap                     No
+end
+Gauge
+    Name                         CapBank1_gauge
+    Alias                        CapBank1_gauge
+    Bevel.BorderColor            clBtnFace
+    Bevel.BorderWidth            0
+    Bevel.InnerColor             BLACK
+    Bevel.InnerHighlight         clBtnHighlight
+    Bevel.InnerOutline           None
+    Bevel.InnerShadow            clBtnShadow
+    Bevel.InnerSpace             1
+    Bevel.InnerStyle             Lowered
+    Bevel.Innerwidth             2
+    Bevel.OuterColor             clBtnFace
+    Bevel.OuterHighlight         clBtnHighlight
+    Bevel.OuterOutline           Outer
+    Bevel.OuterShadow            clBtnShadow
+    Bevel.OuterSpace             0
+    Bevel.OuterStyle             Raised
+    Bevel.Outerwidth             1
+    Bevel.Visible                Yes
+    Color                        BLACK
+    Height                       30
+    Left                         37
+    Maxvalue                     100
+    Minvalue                     0
+    Orientation                  Horizontal
+    Palette1.High                clLime
+    Palette1.Low                 0x005100
+    Palette2.High                clYellow
+    Palette2.Low                 0x005151
+    Palette3.High                clRed
+    Palette3.Low                 0x000051
+    Percent1                     60
+    Percent2                     25
+    Spacing                      1
+    Step                         10
+    Style                        BottomLeft
+    TickHeight                   1
+    Top                          352
+    Width                        215
+    OnChanged                    ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+Circle
+    Name                         Circle1
+    Alias                        Circle1
+    Color                        'Office 2007 (Obsidian)'
+    Filled                       Yes
+    Rad                          15
+    X                            217
+    Y                            449
+end
+StaticText
+    Name                         Statictext3
+    Alias                        Statictext3
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      Overcharged
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    16
+    Font.Style                   []
+    Height                       25
+    Left                         39
+    Top                          437
+    Transparent                  Yes
+    Width                        120
+    WordWrap                     No
+end
+StaticText
+    Name                         Statictext4
+    Alias                        Statictext4
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      Temperature
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    16
+    Font.Style                   []
+    Height                       25
+    Left                         37
+    Top                          398
+    Transparent                  Yes
+    Width                        121
+    WordWrap                     No
+end
+Panel
+    Name                         Panel4
+    Alias                        Panel4
+    Color                        WHITE
+    Height                       30
+    Left                         179
+    Outlined                     No
+    OutlineColor                 WHITE
+    Pattern                      Fine
+    State                        Lowered
+    Top                          394
+    Width                        75
+end
+Gauge
+    Name                         Gauge2
+    Alias                        Gauge2
+    Bevel.BorderColor            clBtnFace
+    Bevel.BorderWidth            0
+    Bevel.InnerColor             BLACK
+    Bevel.InnerHighlight         clBtnHighlight
+    Bevel.InnerOutline           None
+    Bevel.InnerShadow            clBtnShadow
+    Bevel.InnerSpace             1
+    Bevel.InnerStyle             Lowered
+    Bevel.Innerwidth             2
+    Bevel.OuterColor             clBtnFace
+    Bevel.OuterHighlight         clBtnHighlight
+    Bevel.OuterOutline           Outer
+    Bevel.OuterShadow            clBtnShadow
+    Bevel.OuterSpace             0
+    Bevel.OuterStyle             Raised
+    Bevel.Outerwidth             1
+    Bevel.Visible                Yes
+    Color                        BLACK
+    Height                       30
+    Left                         349
+    Maxvalue                     100
+    Minvalue                     0
+    Orientation                  Horizontal
+    Palette1.High                clLime
+    Palette1.Low                 0x005100
+    Palette2.High                clYellow
+    Palette2.Low                 0x005151
+    Palette3.High                clRed
+    Palette3.Low                 0x000051
+    Percent1                     60
+    Percent2                     25
+    Spacing                      1
+    Step                         10
+    Style                        BottomLeft
+    TickHeight                   1
+    Top                          352
+    Width                        215
+    OnChanged                    ''
+    OnTouchMoving                ''
+    OnTouchPressed               ''
+    OnTouchReleased              ''
+end
+StaticText
+    Name                         Statictext5
+    Alias                        Statictext5
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      Temperature
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    16
+    Font.Style                   []
+    Height                       25
+    Left                         349
+    Top                          398
+    Transparent                  Yes
+    Width                        121
+    WordWrap                     No
+end
+Panel
+    Name                         Panel3
+    Alias                        Panel3
+    Color                        WHITE
+    Height                       30
+    Left                         492
+    Outlined                     No
+    OutlineColor                 WHITE
+    Pattern                      Fine
+    State                        Lowered
+    Top                          394
+    Width                        75
+end
+StaticText
+    Name                         Statictext6
+    Alias                        Statictext6
+    Alignment                    Left
+    AutoSize                     Yes
+    Caption                      Overcharged
+    Color                        BLACK
+    Font.Color                   BLACK
+    Font.Effects                 []
+    Font.Name                    Tahoma
+    Font.Size                    16
+    Font.Style                   []
+    Height                       25
+    Left                         349
+    Top                          437
+    Transparent                  Yes
+    Width                        120
+    WordWrap                     No
+end
+Circle
+    Name                         Circle2
+    Alias                        Circle2
+    Color                        'Office 2007 (Obsidian)'
+    Filled                       Yes
+    Rad                          15
+    X                            527
+    Y                            447
+end
+Circle
+    Name                         Circle3
+    Alias                        Circle3
+    Color                        LIMEGREEN
+    Filled                       Yes
+    Rad                          14
+    X                            217
+    Y                            449
+end
+Circle
+    Name                         Circle8
+    Alias                        Circle8
+    Color                        LIMEGREEN
+    Filled                       Yes
+    Rad                          14
+    X                            527
+    Y                            447
 end
 Form
     Name                         Shelf_Form

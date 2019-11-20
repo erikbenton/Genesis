@@ -1,0 +1,59 @@
+linked : 18    disable_all_inputs 000060
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  672:000060 
+
+skipped: 17    check_press ----
+linked : 16    request_all_shelf_mods 00006E
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  461:00006e   464:000074   466:000091 
+
+linked : 15    request_mod 0000A2
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  443:0000a4   444:0000aa   445:0000b0   446:0000b6   447:0000bc   448:0000c8   449:0000ce   452:0000d4 
+  453:0000ec 
+
+skipped: 14    process_input ----
+linked : 13    setup_comms 0000FF
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  359:0000ff   360:00010c   361:000118   362:000120 
+
+linked : 12    set_mods 000129
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  337:000129   338:000136   339:000146   340:000156   343:000169   344:000176   347:000186   348:000193 
+
+linked : 11    get_mods 0001A4
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  327:0001a4   328:0001aa   329:0001ba 
+
+linked : 10    set_shelf 0001CE
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  311:0001ce   312:0001db   313:0001eb   314:0001f8   315:000205   316:000212   317:00021f   318:00022c 
+
+linked : 9     get_shelf 00023A
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  304:00023a 
+
+linked : 8     calc_temperature 000241
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  288:000241   289:00024c   290:000256   292:000262 
+
+skipped: 7     print_temperature ----
+skipped: 6     calc_mod_voltage ----
+linked : 5     calc_shelf_voltage 000265
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  234:000267   237:00026f   243:000279   246:000283   249:00028e 
+
+skipped: 4     print_shelf_voltage ----
+linked : 3     calc_system_voltage 00029B
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  201:00029b   205:0002a6   207:0002be   210:0002c6   213:0002d8 
+
+skipped: 2     print_system_voltage ----
+linked : 1     main 0002DB
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  118:0002e4   119:0002ea   120:0002f0 
+
+ stmt:Offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset  stmt:offset
+  159:0002f6   130:0002fc   131:000305   132:00030e   133:000317   134:000320   135:000328   136:00032e 
+  141:000339   144:00034a   145:000354   146:00035c   150:000361   154:00036a   157:00036a   160:00037d 
+

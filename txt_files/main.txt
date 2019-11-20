@@ -16,7 +16,7 @@ func main()
   endif
 
   // Get file handle
-  hndl := file_LoadImageControl("CERDEC.dat", "CERDEC.gci", 1);
+  hndl := file_LoadImageControl("GENESIS.dat", "GENESIS.gci", 1);
   
   // Basic initialization stuff
   gfx_Set(SCREEN_MODE, LANDSCAPE);
@@ -24,9 +24,9 @@ func main()
   setup_comms();
 
   // Draw the logo screen then the overall screen
-  draw_logo_screen();
+  // draw_logo_screen();
   pause(1500);
-  draw_overall_form();
+  // draw_overall_form();
 
   // Enter the forever loop
   repeat
@@ -44,7 +44,7 @@ func main()
     // Update the view
 
     // Check for user input
-    check_press();
+    // check_press();
 
     // React to user input
 

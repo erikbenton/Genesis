@@ -1,4 +1,4 @@
-#platform "Gen4-uLCD-70DT"
+// ##################
 // Headers
 // ##################
 
@@ -139,7 +139,7 @@ func main()
 
   // Get file handle
   hndl := file_LoadImageControl("GENESIS.dat", "GENESIS.gci", 1);
-
+  
   // Basic initialization stuff
   gfx_Set(SCREEN_MODE, LANDSCAPE);
   touch_Set(TOUCH_ENABLE);
@@ -183,9 +183,9 @@ endfunc
 func print_system_voltage(var x_pos, var y_pos)
 
     var sys_volt[2];
-
+    
     sys_volt := calc_system_voltage();
-
+    
     gfx_MoveTo(x_pos, y_pos);
     flt_PRINT(sys_volt, "%-.0f");
 
@@ -196,7 +196,7 @@ endfunc
 func calc_system_voltage()
 
     var sys_volt[2];
-
+    
     // Init the system voltage
     flt_VAL(sys_volt, "0.0");
 
@@ -207,7 +207,7 @@ func calc_system_voltage()
         calc_shelf_voltage(i);
 
         // Add current shelf voltage to system voltage
-        flt_ADD(sys_volt, sys_volt, shelf_volt);
+        flt_ADD(sys_volt, sys_volt, shelf_volt); 
     next
 
     return sys_volt;
@@ -232,19 +232,19 @@ endfunc
 func calc_shelf_voltage(var shelf)
 
     get_shelf(shelf);
-
+    
     var volt_int;
     volt_int := shelf_ptr[0];
 
     // Setting up float arrays
     var volt_flt[2], temp_flt[2];
-
+    
     // Convert to float
     flt_ITOF(volt_flt, volt_int);
 
     // Create multiplication factor
     flt_VAL(temp_flt, "0.02");
-
+    
     // (voltage = [0xUpperByte,0xLowerByte] * 0.02)
     flt_MUL(shelf_volt, volt_flt, temp_flt);
 
@@ -255,13 +255,13 @@ func calc_mod_voltage(var volt_int)
 
     // Setting up float arrays
     var volt_flt[2], temp_flt[2];
-
+    
     // Convert to float
     flt_ITOF(volt_flt, volt_int);
 
     // Create multiplication factor
     flt_VAL(temp_flt, "0.02");
-
+    
     // (voltage = [0xUpperByte,0xLowerByte] * 0.02)
     flt_MUL(volt_mod, volt_flt, temp_flt);
 
@@ -332,17 +332,17 @@ endfunc
 
 // Updates the mod_ptr_1 & mod_ptr_2 mods' infos
 func set_mods(var data)
-
+    
     // Get the voltage
     mod_ptr_1[0] := data[MOD_V];
     mod_ptr_1[1] := data[MOD_V + 1];
     mod_ptr_2[0] := data[MOD_V + 4];
     mod_ptr_2[1] := data[MOD_V + 4 + 1];
-
+    
     // Get the temperature
     mod_ptr_1[2] := data[MOD_T];
     mod_ptr_2[2] := data[MOD_T + 4];
-
+    
     // Get the Alarm/Error
     mod_ptr_1[3] := data[MOD_A];
     mod_ptr_2[3] := data[MOD_A + 4];
@@ -376,7 +376,7 @@ func process_input()
     var i;
 
     if(com1_Count() > dataByteCount)
-
+        
         // Read in the first byte
         // Should be START BYTE (0xAA)
         tmpByte := serin1();
@@ -403,10 +403,10 @@ func process_input()
         for(i := 0; i < dataByteCount; i++)
             temp_vals[i] := serin1();
         next
-
+        
         // If it's a shelf update message
         if(temp_vals[TYPE] == 0xA0)
-
+            
             // See who the message is for
             shelf_number := temp_vals[ID];
 
@@ -419,16 +419,16 @@ func process_input()
 
         // If it's a mod update message
         if((temp_vals[TYPE] & 0xB0) == 0xB0)
-
+            
             // See who the message is for
             shelf_number := temp_vals[ID];
             mod_number := ((temp_vals[TYPE] | 0xF0) & 0x0F);
-
+            
             // Get their attention
             get_mods(shelf_number, mod_number);
-
+            
             // Update their info
-            set_mods(temp_vals);
+            set_mods(temp_vals);          
         endif
     endif
 endfunc
@@ -474,7 +474,7 @@ func check_press()
   touch_state := touch_Get(TOUCH_STATUS);
 
   if(touch_state == TOUCH_RELEASED)
-
+    
     // Get the touched image and location
     var touched_image, x_touch, y_touch;
     touched_image := img_Touched(hndl, -1);
@@ -672,5 +672,4 @@ func disable_all_inputs()
   img_SetAttributes(hndl, -1, I_TOUCH_DISABLE);
 
 endfunc
-
 
