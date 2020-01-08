@@ -192,6 +192,12 @@ namespace genesis_gui
             }
             return;
         }
+
+        private void v2ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Sandbox sandbox = new Sandbox();
+            sandbox.Show();
+        }
         
     }
 }

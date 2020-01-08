@@ -129,19 +129,18 @@
             this.StopButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.ConnectGB = new System.Windows.Forms.GroupBox();
-            this.ConnectedLabel = new System.Windows.Forms.Label();
-            this.OfflineLabel = new System.Windows.Forms.Label();
-            this.ConnectTrackbar = new System.Windows.Forms.TrackBar();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.commsSetupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ConnectedLED = new M4359_GUI.LEDPanel();
-            this.RelayLED = new M4359_GUI.LEDPanel();
             this.label1 = new System.Windows.Forms.Label();
+            this.ConnectedLED = new M4359_GUI.LEDPanel();
             this.ledPanel1 = new M4359_GUI.LEDPanel();
+            this.RelayLED = new M4359_GUI.LEDPanel();
+            this.CANBusStatusLabel = new System.Windows.Forms.Label();
+            this.v2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SystemGB.SuspendLayout();
             this.ModeGB.SuspendLayout();
             this.ShelfGB.SuspendLayout();
@@ -155,13 +154,12 @@
             this.ModInfoGB.SuspendLayout();
             this.ControlsGB.SuspendLayout();
             this.ConnectGB.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConnectTrackbar)).BeginInit();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // SystemGB
             // 
-            this.SystemGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.SystemGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.SystemGB.Controls.Add(this.RelayLED);
             this.SystemGB.Controls.Add(this.ClearNumDischargesButton);
             this.SystemGB.Controls.Add(this.NumDischargesField);
@@ -323,7 +321,7 @@
             // 
             // ShelfGB
             // 
-            this.ShelfGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ShelfGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ShelfGB.Controls.Add(this.ShelfAlarmsGB);
             this.ShelfGB.Controls.Add(this.ShelfInfoGB);
             this.ShelfGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -596,7 +594,7 @@
             // 
             // VoltagesGB
             // 
-            this.VoltagesGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.VoltagesGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.VoltagesGB.Controls.Add(this.ledPanel1);
             this.VoltagesGB.Controls.Add(this.label1);
             this.VoltagesGB.Controls.Add(this.ESDBusVoltageField);
@@ -675,7 +673,7 @@
             // 
             // CurrentsGB
             // 
-            this.CurrentsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.CurrentsGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.CurrentsGB.Controls.Add(this.ESDCurrentField);
             this.CurrentsGB.Controls.Add(this.ESDCurrentLabel);
             this.CurrentsGB.Controls.Add(this.ConvDCCurrentField);
@@ -774,7 +772,7 @@
             // 
             // TemperaturesGB
             // 
-            this.TemperaturesGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.TemperaturesGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.TemperaturesGB.Controls.Add(this.TempField5);
             this.TemperaturesGB.Controls.Add(this.TempLabel5);
             this.TemperaturesGB.Controls.Add(this.TempField4);
@@ -895,7 +893,7 @@
             // 
             // ModGB
             // 
-            this.ModGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ModGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ModGB.Controls.Add(this.ModAlarmsGB);
             this.ModGB.Controls.Add(this.ModInfoGB);
             this.ModGB.Controls.Add(this.ModLabel9);
@@ -1297,7 +1295,7 @@
             // 
             // ControlsGB
             // 
-            this.ControlsGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ControlsGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ControlsGB.Controls.Add(this.EStopButton);
             this.ControlsGB.Controls.Add(this.StopButton);
             this.ControlsGB.Controls.Add(this.StartButton);
@@ -1349,51 +1347,16 @@
             // 
             // ConnectGB
             // 
-            this.ConnectGB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ConnectGB.Anchor = System.Windows.Forms.AnchorStyles.Left;
             this.ConnectGB.Controls.Add(this.ConnectedLED);
-            this.ConnectGB.Controls.Add(this.ConnectedLabel);
-            this.ConnectGB.Controls.Add(this.OfflineLabel);
-            this.ConnectGB.Controls.Add(this.ConnectTrackbar);
+            this.ConnectGB.Controls.Add(this.CANBusStatusLabel);
             this.ConnectGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ConnectGB.Location = new System.Drawing.Point(536, 36);
             this.ConnectGB.Name = "ConnectGB";
             this.ConnectGB.Size = new System.Drawing.Size(256, 91);
             this.ConnectGB.TabIndex = 8;
             this.ConnectGB.TabStop = false;
-            this.ConnectGB.Text = "Connect";
-            // 
-            // ConnectedLabel
-            // 
-            this.ConnectedLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ConnectedLabel.AutoSize = true;
-            this.ConnectedLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.ConnectedLabel.Location = new System.Drawing.Point(115, 37);
-            this.ConnectedLabel.Name = "ConnectedLabel";
-            this.ConnectedLabel.Size = new System.Drawing.Size(87, 20);
-            this.ConnectedLabel.TabIndex = 11;
-            this.ConnectedLabel.Text = "Connected";
-            // 
-            // OfflineLabel
-            // 
-            this.OfflineLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.OfflineLabel.AutoSize = true;
-            this.OfflineLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.OfflineLabel.Location = new System.Drawing.Point(9, 37);
-            this.OfflineLabel.Name = "OfflineLabel";
-            this.OfflineLabel.Size = new System.Drawing.Size(55, 20);
-            this.OfflineLabel.TabIndex = 10;
-            this.OfflineLabel.Text = "Offline";
-            // 
-            // ConnectTrackbar
-            // 
-            this.ConnectTrackbar.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ConnectTrackbar.LargeChange = 1;
-            this.ConnectTrackbar.Location = new System.Drawing.Point(64, 37);
-            this.ConnectTrackbar.Maximum = 1;
-            this.ConnectTrackbar.Name = "ConnectTrackbar";
-            this.ConnectTrackbar.Size = new System.Drawing.Size(51, 45);
-            this.ConnectTrackbar.TabIndex = 9;
-            this.ConnectTrackbar.Scroll += new System.EventHandler(this.ConnectTrackbar_Scroll);
+            this.ConnectGB.Text = "CAN Bus";
             // 
             // menuStrip1
             // 
@@ -1441,17 +1404,30 @@
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.v2ToolStripMenuItem});
             this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(54, 25);
             this.helpToolStripMenuItem.Text = "Help";
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.label1.Location = new System.Drawing.Point(15, 137);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(92, 17);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "Over-Voltage";
             // 
             // ConnectedLED
             // 
             this.ConnectedLED.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.ConnectedLED.BlinkTime = 500;
             this.ConnectedLED.IsBlinking = false;
-            this.ConnectedLED.Location = new System.Drawing.Point(212, 35);
+            this.ConnectedLED.Location = new System.Drawing.Point(90, 40);
             this.ConnectedLED.Name = "ConnectedLED";
             this.ConnectedLED.OffColor = System.Drawing.Color.LightGray;
             this.ConnectedLED.OffEdgeColor = System.Drawing.Color.DimGray;
@@ -1460,6 +1436,21 @@
             this.ConnectedLED.Size = new System.Drawing.Size(25, 25);
             this.ConnectedLED.TabIndex = 10;
             this.ConnectedLED.Value = false;
+            // 
+            // ledPanel1
+            // 
+            this.ledPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.ledPanel1.BlinkTime = 500;
+            this.ledPanel1.IsBlinking = false;
+            this.ledPanel1.Location = new System.Drawing.Point(123, 133);
+            this.ledPanel1.Name = "ledPanel1";
+            this.ledPanel1.OffColor = System.Drawing.Color.LightGray;
+            this.ledPanel1.OffEdgeColor = System.Drawing.Color.DimGray;
+            this.ledPanel1.OnColor = System.Drawing.Color.LimeGreen;
+            this.ledPanel1.OnEdgeColor = System.Drawing.Color.DarkGreen;
+            this.ledPanel1.Size = new System.Drawing.Size(25, 25);
+            this.ledPanel1.TabIndex = 10;
+            this.ledPanel1.Value = false;
             // 
             // RelayLED
             // 
@@ -1476,31 +1467,23 @@
             this.RelayLED.TabIndex = 9;
             this.RelayLED.Value = false;
             // 
-            // label1
+            // CANBusStatusLabel
             // 
-            this.label1.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(15, 137);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(92, 17);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "Over-Voltage";
+            this.CANBusStatusLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.CANBusStatusLabel.AutoSize = true;
+            this.CANBusStatusLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.CANBusStatusLabel.Location = new System.Drawing.Point(16, 40);
+            this.CANBusStatusLabel.Name = "CANBusStatusLabel";
+            this.CANBusStatusLabel.Size = new System.Drawing.Size(56, 20);
+            this.CANBusStatusLabel.TabIndex = 11;
+            this.CANBusStatusLabel.Text = "Status";
             // 
-            // ledPanel1
+            // v2ToolStripMenuItem
             // 
-            this.ledPanel1.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.ledPanel1.BlinkTime = 500;
-            this.ledPanel1.IsBlinking = false;
-            this.ledPanel1.Location = new System.Drawing.Point(123, 133);
-            this.ledPanel1.Name = "ledPanel1";
-            this.ledPanel1.OffColor = System.Drawing.Color.LightGray;
-            this.ledPanel1.OffEdgeColor = System.Drawing.Color.DimGray;
-            this.ledPanel1.OnColor = System.Drawing.Color.LimeGreen;
-            this.ledPanel1.OnEdgeColor = System.Drawing.Color.DarkGreen;
-            this.ledPanel1.Size = new System.Drawing.Size(25, 25);
-            this.ledPanel1.TabIndex = 10;
-            this.ledPanel1.Value = false;
+            this.v2ToolStripMenuItem.Name = "v2ToolStripMenuItem";
+            this.v2ToolStripMenuItem.Size = new System.Drawing.Size(152, 26);
+            this.v2ToolStripMenuItem.Text = "V2";
+            this.v2ToolStripMenuItem.Click += new System.EventHandler(this.v2ToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -1521,7 +1504,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
-            this.Text = "GENESIS";
+            this.Text = "GENESISv1";
             this.SystemGB.ResumeLayout(false);
             this.SystemGB.PerformLayout();
             this.ModeGB.ResumeLayout(false);
@@ -1546,7 +1529,6 @@
             this.ControlsGB.ResumeLayout(false);
             this.ConnectGB.ResumeLayout(false);
             this.ConnectGB.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ConnectTrackbar)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -1655,9 +1637,6 @@
         private System.Windows.Forms.Label ModTempLabel;
         private System.Windows.Forms.Label ModVoltageLabel;
         private System.Windows.Forms.GroupBox ConnectGB;
-        private System.Windows.Forms.Label ConnectedLabel;
-        private System.Windows.Forms.Label OfflineLabel;
-        private System.Windows.Forms.TrackBar ConnectTrackbar;
         private System.Windows.Forms.Button ClearNumDischargesButton;
         private M4359_GUI.LEDPanel RelayLED;
         private M4359_GUI.LEDPanel ConnectedLED;
@@ -1669,6 +1648,8 @@
         private System.Windows.Forms.ToolStripMenuItem commsSetupToolStripMenuItem;
         private M4359_GUI.LEDPanel ledPanel1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label CANBusStatusLabel;
+        private System.Windows.Forms.ToolStripMenuItem v2ToolStripMenuItem;
     }
 }
 
