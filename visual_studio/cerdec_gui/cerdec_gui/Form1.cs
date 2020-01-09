@@ -31,65 +31,12 @@ namespace genesis_gui
         {
             InitializeComponent();
             saved_com_port = Properties.Settings.Default.saved_com_port;
+            eslGauge1.Value = 55;
         }
 
         private void ConnectTrackbar_Scroll(object sender, EventArgs e)
         {
-            // Cast to a trackbar to use methods
-            TrackBar trackbar_sender = ((TrackBar)sender);
-            
-            // Flag for resetting trackbar at end of method
-            // If you change value of TB while in this method
-            // it will make another call to this method while finishing that one
-            bool go_offline = false;
 
-            // Based on the requested connection status
-            switch (trackbar_sender.Value)
-            {
-                case 0: // Offline
-
-                    if(comms_lib != null)
-                    {
-                        comms_lib.close();
-                        comms_lib = null;
-                    }
-
-                    // Update connection status
-                    connection_status = trackbar_sender.Value;
-
-                    break;
-
-                case 1: // Connect
-
-                    // Get the available COM ports
-                    string[] com_ports = SerialPort.GetPortNames();
-
-                    // If there are no COM ports
-                    if(com_ports == null || com_ports.Length == 0)
-                    {
-                        go_offline = !show_comms_setup_form("There are no available COM ports");
-
-                    } // If there is no saved com port
-                    else if(saved_com_port == null || saved_com_port == "")
-                    {
-                        go_offline = !show_comms_setup_form("You must first select a COM Port");
-
-                    } // If the saved com port isn't in the list of available ports
-                    else if(!Array.Exists(com_ports, ele => ele == saved_com_port))
-                    {
-                        go_offline = !show_comms_setup_form(saved_com_port.ToString() + " is no longer available");
-                    }
-
-                    // Update connection status
-                    connection_status = trackbar_sender.Value;
-
-                    break;
-
-                default:
-                    break;
-            }
-            if (go_offline)
-                trackbar_sender.Value = 0;
         }
 
         private bool show_comms_setup_form()

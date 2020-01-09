@@ -55,6 +55,12 @@
     <Compile Include="CommsSetup.Designer.cs">
       <DependentUpon>CommsSetup.cs</DependentUpon>
     </Compile>
+    <Compile Include="ESLGauge.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ESLGauge.Designer.cs">
+      <DependentUpon>ESLGauge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Module.cs" />
     <Compile Include="CmdCodes.cs" />
     <Compile Include="CommsCon.cs" />
