@@ -92,6 +92,8 @@
             this.SetPointVoltageLabel = new System.Windows.Forms.Label();
             this.VoltagesGB = new System.Windows.Forms.GroupBox();
             this.eslGauge1 = new genesis_gui.ESLGauge();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.openSandboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.TemperaturesGB.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ConnectTrackbar)).BeginInit();
@@ -106,7 +108,7 @@
             // commsSetupToolStripMenuItem
             // 
             this.commsSetupToolStripMenuItem.Name = "commsSetupToolStripMenuItem";
-            this.commsSetupToolStripMenuItem.Size = new System.Drawing.Size(178, 26);
+            this.commsSetupToolStripMenuItem.Size = new System.Drawing.Size(180, 26);
             this.commsSetupToolStripMenuItem.Text = "Comms Setup";
             // 
             // TempLabel8
@@ -298,6 +300,8 @@
             // 
             // helpToolStripMenuItem
             // 
+            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openSandboxToolStripMenuItem});
             this.helpToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(54, 25);
@@ -810,17 +814,34 @@
             // eslGauge1
             // 
             this.eslGauge1.CustomText = null;
-            this.eslGauge1.DisplayStyle = genesis_gui.ProgressBarDisplayText.Percentage;
-            this.eslGauge1.Location = new System.Drawing.Point(80, 164);
+            this.eslGauge1.DisplayStyle = genesis_gui.ProgressBarDisplayText.CustomText;
+            this.eslGauge1.Location = new System.Drawing.Point(12, 549);
             this.eslGauge1.Name = "eslGauge1";
             this.eslGauge1.Size = new System.Drawing.Size(100, 23);
             this.eslGauge1.TabIndex = 20;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Location = new System.Drawing.Point(12, 40);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(295, 271);
+            this.groupBox1.TabIndex = 21;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "ESD";
+            // 
+            // openSandboxToolStripMenuItem
+            // 
+            this.openSandboxToolStripMenuItem.Name = "openSandboxToolStripMenuItem";
+            this.openSandboxToolStripMenuItem.Size = new System.Drawing.Size(182, 26);
+            this.openSandboxToolStripMenuItem.Text = "Open Sandbox";
+            this.openSandboxToolStripMenuItem.Click += new System.EventHandler(this.OpenSandboxToolStripMenuItem_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(802, 577);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.eslGauge1);
             this.Controls.Add(this.TemperaturesGB);
             this.Controls.Add(this.menuStrip1);
@@ -919,6 +940,8 @@
         private System.Windows.Forms.Label SetPointVoltageLabel;
         private System.Windows.Forms.GroupBox VoltagesGB;
         private ESLGauge eslGauge1;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ToolStripMenuItem openSandboxToolStripMenuItem;
     }
 }
 

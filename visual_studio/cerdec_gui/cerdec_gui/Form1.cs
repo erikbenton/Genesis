@@ -32,6 +32,7 @@ namespace genesis_gui
             InitializeComponent();
             saved_com_port = Properties.Settings.Default.saved_com_port;
             eslGauge1.Value = 55;
+            eslGauge1.CustomText = eslGauge1.Value.ToString();
         }
 
         private void ConnectTrackbar_Scroll(object sender, EventArgs e)
@@ -145,6 +146,11 @@ namespace genesis_gui
             Sandbox sandbox = new Sandbox();
             sandbox.Show();
         }
-        
+
+        private void OpenSandboxToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Sandbox sandbox = new Sandbox();
+            sandbox.Show();
+        }
     }
 }
