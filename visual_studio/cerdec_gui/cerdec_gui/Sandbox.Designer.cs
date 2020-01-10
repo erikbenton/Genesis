@@ -72,36 +72,42 @@
             this.percentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ConnectGB = new System.Windows.Forms.GroupBox();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
+            this.OverVoltageLED = new M4359_GUI.LEDPanel();
+            this.OverVoltageLabel = new System.Windows.Forms.Label();
+            this.RelaysLED = new M4359_GUI.LEDPanel();
+            this.RelaysLabel = new System.Windows.Forms.Label();
+            this.CommsLED = new M4359_GUI.LEDPanel();
             this.CANBusStatusLabel = new System.Windows.Forms.Label();
             this.ControlsGB = new System.Windows.Forms.GroupBox();
             this.EStopButton = new System.Windows.Forms.Button();
             this.StopButton = new System.Windows.Forms.Button();
             this.StartButton = new System.Windows.Forms.Button();
             this.ModeGB = new System.Windows.Forms.GroupBox();
-            this.PowerModeRB = new System.Windows.Forms.RadioButton();
-            this.IdleModeRB = new System.Windows.Forms.RadioButton();
-            this.VoltageModeRB = new System.Windows.Forms.RadioButton();
+            this.OperationalModeRB = new System.Windows.Forms.RadioButton();
+            this.SafetyModeRB = new System.Windows.Forms.RadioButton();
+            this.BalanceModeRB = new System.Windows.Forms.RadioButton();
             this.OffModeRB = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.eslGauge1 = new genesis_gui.ESLGauge();
-            this.eslGauge7 = new genesis_gui.ESLGauge();
-            this.eslGauge6 = new genesis_gui.ESLGauge();
-            this.eslGauge5 = new genesis_gui.ESLGauge();
-            this.eslGauge4 = new genesis_gui.ESLGauge();
-            this.eslGauge3 = new genesis_gui.ESLGauge();
-            this.eslGauge2 = new genesis_gui.ESLGauge();
-            this.ledPanel3 = new M4359_GUI.LEDPanel();
-            this.ledPanel2 = new M4359_GUI.LEDPanel();
-            this.ConnectedLED = new M4359_GUI.LEDPanel();
+            this.ESDGB = new System.Windows.Forms.GroupBox();
+            this.ESDTempsGB = new System.Windows.Forms.GroupBox();
+            this.ESDTempLabel4 = new System.Windows.Forms.Label();
+            this.ESDTempLabel3 = new System.Windows.Forms.Label();
+            this.ESDTempGauge5 = new genesis_gui.ESLGauge();
+            this.ESDTempLabel1 = new System.Windows.Forms.Label();
+            this.ESDTempLabel5 = new System.Windows.Forms.Label();
+            this.ESDTempGauge1 = new genesis_gui.ESLGauge();
+            this.ESDTempGauge4 = new genesis_gui.ESLGauge();
+            this.ESDTempLabel2 = new System.Windows.Forms.Label();
+            this.ESDTempGauge3 = new genesis_gui.ESLGauge();
+            this.ESDTempGauge2 = new genesis_gui.ESLGauge();
+            this.ESDOverallGB = new System.Windows.Forms.GroupBox();
+            this.ESDVoltageLabel = new System.Windows.Forms.Label();
+            this.ESDMaxTempGauge = new genesis_gui.ESLGauge();
+            this.ESDOverallCurrentLabel = new System.Windows.Forms.Label();
+            this.ESDMaxTempLabel = new System.Windows.Forms.Label();
+            this.ESDCurrentGauge = new genesis_gui.ESLGauge();
+            this.ESDVoltageGauge = new genesis_gui.ESLGauge();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.UserMessage = new System.Windows.Forms.ToolStripStatusLabel();
             this.CurrentsGB.SuspendLayout();
             this.TemperaturesGB.SuspendLayout();
             this.VoltagesGB.SuspendLayout();
@@ -109,12 +115,14 @@
             this.ConnectGB.SuspendLayout();
             this.ControlsGB.SuspendLayout();
             this.ModeGB.SuspendLayout();
-            this.groupBox1.SuspendLayout();
+            this.ESDGB.SuspendLayout();
+            this.ESDTempsGB.SuspendLayout();
+            this.ESDOverallGB.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // CurrentsGB
             // 
-            this.CurrentsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.CurrentsGB.Controls.Add(this.ESDCurrentField);
             this.CurrentsGB.Controls.Add(this.ESDCurrentLabel);
             this.CurrentsGB.Controls.Add(this.ConvDCCurrentField);
@@ -213,7 +221,6 @@
             // 
             // TemperaturesGB
             // 
-            this.TemperaturesGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.TemperaturesGB.Controls.Add(this.TempLabel8);
             this.TemperaturesGB.Controls.Add(this.TempLabel7);
             this.TemperaturesGB.Controls.Add(this.TempLabel6);
@@ -400,7 +407,6 @@
             // 
             // VoltagesGB
             // 
-            this.VoltagesGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.VoltagesGB.Controls.Add(this.ESDBusVoltageField);
             this.VoltagesGB.Controls.Add(this.DCBusVoltageField);
             this.VoltagesGB.Controls.Add(this.SetPointVoltageField);
@@ -479,7 +485,7 @@
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(614, 29);
+            this.menuStrip1.Size = new System.Drawing.Size(616, 29);
             this.menuStrip1.TabIndex = 10;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -504,7 +510,7 @@
             this.eSDDisplayToolStripMenuItem});
             this.toolsToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(57, 25);
+            this.toolsToolStripMenuItem.Size = new System.Drawing.Size(59, 25);
             this.toolsToolStripMenuItem.Text = "Tools";
             // 
             // commsSetupToolStripMenuItem
@@ -525,13 +531,13 @@
             // valuesToolStripMenuItem
             // 
             this.valuesToolStripMenuItem.Name = "valuesToolStripMenuItem";
-            this.valuesToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
+            this.valuesToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.valuesToolStripMenuItem.Text = "Values";
             // 
             // percentsToolStripMenuItem
             // 
             this.percentsToolStripMenuItem.Name = "percentsToolStripMenuItem";
-            this.percentsToolStripMenuItem.Size = new System.Drawing.Size(138, 26);
+            this.percentsToolStripMenuItem.Size = new System.Drawing.Size(139, 26);
             this.percentsToolStripMenuItem.Text = "Percents";
             // 
             // helpToolStripMenuItem
@@ -543,42 +549,86 @@
             // 
             // ConnectGB
             // 
-            this.ConnectGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ConnectGB.Controls.Add(this.ledPanel3);
-            this.ConnectGB.Controls.Add(this.label6);
-            this.ConnectGB.Controls.Add(this.ledPanel2);
-            this.ConnectGB.Controls.Add(this.label5);
-            this.ConnectGB.Controls.Add(this.ConnectedLED);
+            this.ConnectGB.Controls.Add(this.OverVoltageLED);
+            this.ConnectGB.Controls.Add(this.OverVoltageLabel);
+            this.ConnectGB.Controls.Add(this.RelaysLED);
+            this.ConnectGB.Controls.Add(this.RelaysLabel);
+            this.ConnectGB.Controls.Add(this.CommsLED);
             this.ConnectGB.Controls.Add(this.CANBusStatusLabel);
             this.ConnectGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
             this.ConnectGB.Location = new System.Drawing.Point(4, 32);
             this.ConnectGB.Name = "ConnectGB";
-            this.ConnectGB.Size = new System.Drawing.Size(159, 103);
+            this.ConnectGB.Size = new System.Drawing.Size(147, 103);
             this.ConnectGB.TabIndex = 13;
             this.ConnectGB.TabStop = false;
             this.ConnectGB.Text = "Status";
             // 
-            // label6
+            // OverVoltageLED
             // 
-            this.label6.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label6.Location = new System.Drawing.Point(11, 72);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(92, 17);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Over-Voltage";
+            this.OverVoltageLED.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.OverVoltageLED.BlinkTime = 500;
+            this.OverVoltageLED.IsBlinking = false;
+            this.OverVoltageLED.Location = new System.Drawing.Point(115, 70);
+            this.OverVoltageLED.Name = "OverVoltageLED";
+            this.OverVoltageLED.OffColor = System.Drawing.Color.LightGray;
+            this.OverVoltageLED.OffEdgeColor = System.Drawing.Color.DimGray;
+            this.OverVoltageLED.OnColor = System.Drawing.Color.LimeGreen;
+            this.OverVoltageLED.OnEdgeColor = System.Drawing.Color.DarkGreen;
+            this.OverVoltageLED.Size = new System.Drawing.Size(20, 20);
+            this.OverVoltageLED.TabIndex = 14;
+            this.OverVoltageLED.Value = false;
             // 
-            // label5
+            // OverVoltageLabel
             // 
-            this.label5.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label5.Location = new System.Drawing.Point(10, 48);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(51, 17);
-            this.label5.TabIndex = 13;
-            this.label5.Text = "Relays";
+            this.OverVoltageLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.OverVoltageLabel.AutoSize = true;
+            this.OverVoltageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.OverVoltageLabel.Location = new System.Drawing.Point(11, 72);
+            this.OverVoltageLabel.Name = "OverVoltageLabel";
+            this.OverVoltageLabel.Size = new System.Drawing.Size(92, 17);
+            this.OverVoltageLabel.TabIndex = 15;
+            this.OverVoltageLabel.Text = "Over-Voltage";
+            // 
+            // RelaysLED
+            // 
+            this.RelaysLED.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.RelaysLED.BlinkTime = 500;
+            this.RelaysLED.IsBlinking = false;
+            this.RelaysLED.Location = new System.Drawing.Point(115, 46);
+            this.RelaysLED.Name = "RelaysLED";
+            this.RelaysLED.OffColor = System.Drawing.Color.LightGray;
+            this.RelaysLED.OffEdgeColor = System.Drawing.Color.DimGray;
+            this.RelaysLED.OnColor = System.Drawing.Color.LimeGreen;
+            this.RelaysLED.OnEdgeColor = System.Drawing.Color.DarkGreen;
+            this.RelaysLED.Size = new System.Drawing.Size(20, 20);
+            this.RelaysLED.TabIndex = 12;
+            this.RelaysLED.Value = false;
+            // 
+            // RelaysLabel
+            // 
+            this.RelaysLabel.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.RelaysLabel.AutoSize = true;
+            this.RelaysLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.RelaysLabel.Location = new System.Drawing.Point(10, 48);
+            this.RelaysLabel.Name = "RelaysLabel";
+            this.RelaysLabel.Size = new System.Drawing.Size(51, 17);
+            this.RelaysLabel.TabIndex = 13;
+            this.RelaysLabel.Text = "Relays";
+            // 
+            // CommsLED
+            // 
+            this.CommsLED.Anchor = System.Windows.Forms.AnchorStyles.Left;
+            this.CommsLED.BlinkTime = 500;
+            this.CommsLED.IsBlinking = false;
+            this.CommsLED.Location = new System.Drawing.Point(115, 22);
+            this.CommsLED.Name = "CommsLED";
+            this.CommsLED.OffColor = System.Drawing.Color.LightGray;
+            this.CommsLED.OffEdgeColor = System.Drawing.Color.DimGray;
+            this.CommsLED.OnColor = System.Drawing.Color.LimeGreen;
+            this.CommsLED.OnEdgeColor = System.Drawing.Color.DarkGreen;
+            this.CommsLED.Size = new System.Drawing.Size(20, 20);
+            this.CommsLED.TabIndex = 10;
+            this.CommsLED.Value = false;
             // 
             // CANBusStatusLabel
             // 
@@ -593,7 +643,6 @@
             // 
             // ControlsGB
             // 
-            this.ControlsGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ControlsGB.Controls.Add(this.EStopButton);
             this.ControlsGB.Controls.Add(this.StopButton);
             this.ControlsGB.Controls.Add(this.StartButton);
@@ -645,64 +694,63 @@
             // 
             // ModeGB
             // 
-            this.ModeGB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ModeGB.Controls.Add(this.PowerModeRB);
-            this.ModeGB.Controls.Add(this.IdleModeRB);
-            this.ModeGB.Controls.Add(this.VoltageModeRB);
+            this.ModeGB.Controls.Add(this.OperationalModeRB);
+            this.ModeGB.Controls.Add(this.SafetyModeRB);
+            this.ModeGB.Controls.Add(this.BalanceModeRB);
             this.ModeGB.Controls.Add(this.OffModeRB);
             this.ModeGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.ModeGB.Location = new System.Drawing.Point(169, 32);
+            this.ModeGB.Location = new System.Drawing.Point(157, 32);
             this.ModeGB.Name = "ModeGB";
-            this.ModeGB.Size = new System.Drawing.Size(180, 103);
+            this.ModeGB.Size = new System.Drawing.Size(192, 103);
             this.ModeGB.TabIndex = 15;
             this.ModeGB.TabStop = false;
             this.ModeGB.Text = "Mode";
             // 
-            // PowerModeRB
+            // OperationalModeRB
             // 
-            this.PowerModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.PowerModeRB.AutoSize = true;
-            this.PowerModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.PowerModeRB.Location = new System.Drawing.Point(87, 61);
-            this.PowerModeRB.Name = "PowerModeRB";
-            this.PowerModeRB.Size = new System.Drawing.Size(65, 21);
-            this.PowerModeRB.TabIndex = 34;
-            this.PowerModeRB.TabStop = true;
-            this.PowerModeRB.Text = "Power";
-            this.PowerModeRB.UseVisualStyleBackColor = true;
+            this.OperationalModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.OperationalModeRB.AutoSize = true;
+            this.OperationalModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.OperationalModeRB.Location = new System.Drawing.Point(85, 61);
+            this.OperationalModeRB.Name = "OperationalModeRB";
+            this.OperationalModeRB.Size = new System.Drawing.Size(100, 21);
+            this.OperationalModeRB.TabIndex = 34;
+            this.OperationalModeRB.TabStop = true;
+            this.OperationalModeRB.Text = "Operational";
+            this.OperationalModeRB.UseVisualStyleBackColor = true;
             // 
-            // IdleModeRB
+            // SafetyModeRB
             // 
-            this.IdleModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.IdleModeRB.AutoSize = true;
-            this.IdleModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.IdleModeRB.Location = new System.Drawing.Point(26, 61);
-            this.IdleModeRB.Name = "IdleModeRB";
-            this.IdleModeRB.Size = new System.Drawing.Size(48, 21);
-            this.IdleModeRB.TabIndex = 33;
-            this.IdleModeRB.TabStop = true;
-            this.IdleModeRB.Text = "Idle";
-            this.IdleModeRB.UseVisualStyleBackColor = true;
+            this.SafetyModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.SafetyModeRB.AutoSize = true;
+            this.SafetyModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.SafetyModeRB.Location = new System.Drawing.Point(10, 61);
+            this.SafetyModeRB.Name = "SafetyModeRB";
+            this.SafetyModeRB.Size = new System.Drawing.Size(66, 21);
+            this.SafetyModeRB.TabIndex = 33;
+            this.SafetyModeRB.TabStop = true;
+            this.SafetyModeRB.Text = "Safety";
+            this.SafetyModeRB.UseVisualStyleBackColor = true;
             // 
-            // VoltageModeRB
+            // BalanceModeRB
             // 
-            this.VoltageModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.VoltageModeRB.AutoSize = true;
-            this.VoltageModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.VoltageModeRB.Location = new System.Drawing.Point(87, 32);
-            this.VoltageModeRB.Name = "VoltageModeRB";
-            this.VoltageModeRB.Size = new System.Drawing.Size(74, 21);
-            this.VoltageModeRB.TabIndex = 32;
-            this.VoltageModeRB.TabStop = true;
-            this.VoltageModeRB.Text = "Voltage";
-            this.VoltageModeRB.UseVisualStyleBackColor = true;
+            this.BalanceModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.BalanceModeRB.AutoSize = true;
+            this.BalanceModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.BalanceModeRB.Location = new System.Drawing.Point(85, 32);
+            this.BalanceModeRB.Name = "BalanceModeRB";
+            this.BalanceModeRB.Size = new System.Drawing.Size(77, 21);
+            this.BalanceModeRB.TabIndex = 32;
+            this.BalanceModeRB.TabStop = true;
+            this.BalanceModeRB.Text = "Balance";
+            this.BalanceModeRB.UseVisualStyleBackColor = true;
             // 
             // OffModeRB
             // 
             this.OffModeRB.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.OffModeRB.AutoSize = true;
             this.OffModeRB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.OffModeRB.Location = new System.Drawing.Point(26, 32);
+            this.OffModeRB.Location = new System.Drawing.Point(10, 32);
             this.OffModeRB.Name = "OffModeRB";
             this.OffModeRB.Size = new System.Drawing.Size(45, 21);
             this.OffModeRB.TabIndex = 31;
@@ -710,320 +758,349 @@
             this.OffModeRB.Text = "Off";
             this.OffModeRB.UseVisualStyleBackColor = true;
             // 
-            // groupBox1
+            // ESDGB
             // 
-            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.eslGauge1);
-            this.groupBox1.Controls.Add(this.eslGauge7);
-            this.groupBox1.Controls.Add(this.eslGauge6);
-            this.groupBox1.Controls.Add(this.eslGauge5);
-            this.groupBox1.Controls.Add(this.eslGauge4);
-            this.groupBox1.Controls.Add(this.eslGauge3);
-            this.groupBox1.Controls.Add(this.eslGauge2);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
-            this.groupBox1.Location = new System.Drawing.Point(4, 295);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(605, 98);
-            this.groupBox1.TabIndex = 16;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "ESD";
+            this.ESDGB.Controls.Add(this.ESDTempsGB);
+            this.ESDGB.Controls.Add(this.ESDOverallGB);
+            this.ESDGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Bold);
+            this.ESDGB.Location = new System.Drawing.Point(4, 295);
+            this.ESDGB.Name = "ESDGB";
+            this.ESDGB.Size = new System.Drawing.Size(605, 149);
+            this.ESDGB.TabIndex = 16;
+            this.ESDGB.TabStop = false;
+            this.ESDGB.Text = "ESD";
             // 
-            // label3
+            // ESDTempsGB
             // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label3.Location = new System.Drawing.Point(527, 29);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(56, 17);
-            this.label3.TabIndex = 27;
-            this.label3.Text = "Temp 5";
+            this.ESDTempsGB.Controls.Add(this.ESDTempLabel4);
+            this.ESDTempsGB.Controls.Add(this.ESDTempLabel3);
+            this.ESDTempsGB.Controls.Add(this.ESDTempGauge5);
+            this.ESDTempsGB.Controls.Add(this.ESDTempLabel1);
+            this.ESDTempsGB.Controls.Add(this.ESDTempLabel5);
+            this.ESDTempsGB.Controls.Add(this.ESDTempGauge1);
+            this.ESDTempsGB.Controls.Add(this.ESDTempGauge4);
+            this.ESDTempsGB.Controls.Add(this.ESDTempLabel2);
+            this.ESDTempsGB.Controls.Add(this.ESDTempGauge3);
+            this.ESDTempsGB.Controls.Add(this.ESDTempGauge2);
+            this.ESDTempsGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ESDTempsGB.Location = new System.Drawing.Point(202, 23);
+            this.ESDTempsGB.Name = "ESDTempsGB";
+            this.ESDTempsGB.Size = new System.Drawing.Size(394, 120);
+            this.ESDTempsGB.TabIndex = 38;
+            this.ESDTempsGB.TabStop = false;
+            this.ESDTempsGB.Text = "Inner Temperatures";
             // 
-            // label4
+            // ESDTempLabel4
             // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label4.Location = new System.Drawing.Point(443, 29);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(56, 17);
-            this.label4.TabIndex = 26;
-            this.label4.Text = "Temp 4";
+            this.ESDTempLabel4.AutoSize = true;
+            this.ESDTempLabel4.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDTempLabel4.Location = new System.Drawing.Point(246, 33);
+            this.ESDTempLabel4.Name = "ESDTempLabel4";
+            this.ESDTempLabel4.Size = new System.Drawing.Size(56, 17);
+            this.ESDTempLabel4.TabIndex = 36;
+            this.ESDTempLabel4.Text = "Temp 4";
             // 
-            // label7
+            // ESDTempLabel3
             // 
-            this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label7.Location = new System.Drawing.Point(359, 29);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(56, 17);
-            this.label7.TabIndex = 25;
-            this.label7.Text = "Temp 3";
+            this.ESDTempLabel3.AutoSize = true;
+            this.ESDTempLabel3.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDTempLabel3.Location = new System.Drawing.Point(170, 33);
+            this.ESDTempLabel3.Name = "ESDTempLabel3";
+            this.ESDTempLabel3.Size = new System.Drawing.Size(56, 17);
+            this.ESDTempLabel3.TabIndex = 35;
+            this.ESDTempLabel3.Text = "Temp 3";
             // 
-            // label8
+            // ESDTempGauge5
             // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label8.Location = new System.Drawing.Point(275, 29);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(56, 17);
-            this.label8.TabIndex = 24;
-            this.label8.Text = "Temp 2";
+            this.ESDTempGauge5.CustomText = null;
+            this.ESDTempGauge5.DangerColor = System.Drawing.Color.Red;
+            this.ESDTempGauge5.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDTempGauge5.FloatValue = "230.3";
+            this.ESDTempGauge5.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge5.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge5.HighPercentage = 90;
+            this.ESDTempGauge5.Location = new System.Drawing.Point(315, 63);
+            this.ESDTempGauge5.LowColor = System.Drawing.Color.Orange;
+            this.ESDTempGauge5.LowPercentage = 60;
+            this.ESDTempGauge5.Maximum = 250;
+            this.ESDTempGauge5.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDTempGauge5.MediumPercentage = 80;
+            this.ESDTempGauge5.Name = "ESDTempGauge5";
+            this.ESDTempGauge5.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDTempGauge5.SingleColor = false;
+            this.ESDTempGauge5.Size = new System.Drawing.Size(70, 23);
+            this.ESDTempGauge5.TabIndex = 34;
+            this.ESDTempGauge5.TextColor = System.Drawing.Color.Black;
+            this.ESDTempGauge5.Units = "°F";
+            this.ESDTempGauge5.Value = 230;
             // 
-            // label9
+            // ESDTempLabel1
             // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label9.Location = new System.Drawing.Point(191, 29);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(56, 17);
-            this.label9.TabIndex = 23;
-            this.label9.Text = "Temp 1";
+            this.ESDTempLabel1.AutoSize = true;
+            this.ESDTempLabel1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDTempLabel1.Location = new System.Drawing.Point(18, 33);
+            this.ESDTempLabel1.Name = "ESDTempLabel1";
+            this.ESDTempLabel1.Size = new System.Drawing.Size(56, 17);
+            this.ESDTempLabel1.TabIndex = 23;
+            this.ESDTempLabel1.Text = "Temp 1";
             // 
-            // label2
+            // ESDTempLabel5
             // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label2.Location = new System.Drawing.Point(108, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 17);
-            this.label2.TabIndex = 2;
-            this.label2.Text = "Current";
+            this.ESDTempLabel5.AutoSize = true;
+            this.ESDTempLabel5.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDTempLabel5.Location = new System.Drawing.Point(322, 33);
+            this.ESDTempLabel5.Name = "ESDTempLabel5";
+            this.ESDTempLabel5.Size = new System.Drawing.Size(56, 17);
+            this.ESDTempLabel5.TabIndex = 27;
+            this.ESDTempLabel5.Text = "Temp 5";
             // 
-            // label1
+            // ESDTempGauge1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.label1.Location = new System.Drawing.Point(23, 29);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(56, 17);
-            this.label1.TabIndex = 1;
-            this.label1.Text = "Voltage";
+            this.ESDTempGauge1.CustomText = null;
+            this.ESDTempGauge1.DangerColor = System.Drawing.Color.Red;
+            this.ESDTempGauge1.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDTempGauge1.FloatValue = "100.0";
+            this.ESDTempGauge1.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge1.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge1.HighPercentage = 90;
+            this.ESDTempGauge1.Location = new System.Drawing.Point(11, 63);
+            this.ESDTempGauge1.LowColor = System.Drawing.Color.Orange;
+            this.ESDTempGauge1.LowPercentage = 60;
+            this.ESDTempGauge1.Maximum = 250;
+            this.ESDTempGauge1.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDTempGauge1.MediumPercentage = 80;
+            this.ESDTempGauge1.Name = "ESDTempGauge1";
+            this.ESDTempGauge1.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDTempGauge1.SingleColor = false;
+            this.ESDTempGauge1.Size = new System.Drawing.Size(70, 23);
+            this.ESDTempGauge1.TabIndex = 30;
+            this.ESDTempGauge1.TextColor = System.Drawing.Color.Black;
+            this.ESDTempGauge1.Units = "°F";
+            this.ESDTempGauge1.Value = 100;
             // 
-            // eslGauge1
+            // ESDTempGauge4
             // 
-            this.eslGauge1.CustomText = null;
-            this.eslGauge1.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge1.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge1.FloatValue = "230.47";
-            this.eslGauge1.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge1.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge1.HighPercentage = 75;
-            this.eslGauge1.Location = new System.Drawing.Point(14, 55);
-            this.eslGauge1.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge1.LowPercentage = 25;
-            this.eslGauge1.Maximum = 250;
-            this.eslGauge1.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge1.MediumPercentage = 50;
-            this.eslGauge1.Name = "eslGauge1";
-            this.eslGauge1.Polarity = genesis_gui.ProgressBarPolarity.LeftToRight;
-            this.eslGauge1.SingleColor = false;
-            this.eslGauge1.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge1.TabIndex = 35;
-            this.eslGauge1.TextColor = System.Drawing.Color.Black;
-            this.eslGauge1.Units = "V";
-            this.eslGauge1.Value = 230;
+            this.ESDTempGauge4.CustomText = null;
+            this.ESDTempGauge4.DangerColor = System.Drawing.Color.Red;
+            this.ESDTempGauge4.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDTempGauge4.FloatValue = "200.9";
+            this.ESDTempGauge4.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge4.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge4.HighPercentage = 90;
+            this.ESDTempGauge4.Location = new System.Drawing.Point(239, 63);
+            this.ESDTempGauge4.LowColor = System.Drawing.Color.Orange;
+            this.ESDTempGauge4.LowPercentage = 60;
+            this.ESDTempGauge4.Maximum = 250;
+            this.ESDTempGauge4.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDTempGauge4.MediumPercentage = 80;
+            this.ESDTempGauge4.Name = "ESDTempGauge4";
+            this.ESDTempGauge4.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDTempGauge4.SingleColor = false;
+            this.ESDTempGauge4.Size = new System.Drawing.Size(70, 23);
+            this.ESDTempGauge4.TabIndex = 33;
+            this.ESDTempGauge4.TextColor = System.Drawing.Color.Black;
+            this.ESDTempGauge4.Units = "°F";
+            this.ESDTempGauge4.Value = 200;
             // 
-            // eslGauge7
+            // ESDTempLabel2
             // 
-            this.eslGauge7.CustomText = null;
-            this.eslGauge7.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge7.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge7.FloatValue = "230.3";
-            this.eslGauge7.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge7.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge7.HighPercentage = 90;
-            this.eslGauge7.Location = new System.Drawing.Point(518, 55);
-            this.eslGauge7.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge7.LowPercentage = 60;
-            this.eslGauge7.Maximum = 250;
-            this.eslGauge7.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge7.MediumPercentage = 80;
-            this.eslGauge7.Name = "eslGauge7";
-            this.eslGauge7.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
-            this.eslGauge7.SingleColor = false;
-            this.eslGauge7.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge7.TabIndex = 34;
-            this.eslGauge7.TextColor = System.Drawing.Color.Black;
-            this.eslGauge7.Units = "°F";
-            this.eslGauge7.Value = 230;
+            this.ESDTempLabel2.AutoSize = true;
+            this.ESDTempLabel2.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDTempLabel2.Location = new System.Drawing.Point(94, 33);
+            this.ESDTempLabel2.Name = "ESDTempLabel2";
+            this.ESDTempLabel2.Size = new System.Drawing.Size(56, 17);
+            this.ESDTempLabel2.TabIndex = 24;
+            this.ESDTempLabel2.Text = "Temp 2";
             // 
-            // eslGauge6
+            // ESDTempGauge3
             // 
-            this.eslGauge6.CustomText = null;
-            this.eslGauge6.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge6.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge6.FloatValue = "200.9";
-            this.eslGauge6.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge6.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge6.HighPercentage = 90;
-            this.eslGauge6.Location = new System.Drawing.Point(434, 55);
-            this.eslGauge6.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge6.LowPercentage = 60;
-            this.eslGauge6.Maximum = 250;
-            this.eslGauge6.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge6.MediumPercentage = 80;
-            this.eslGauge6.Name = "eslGauge6";
-            this.eslGauge6.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
-            this.eslGauge6.SingleColor = false;
-            this.eslGauge6.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge6.TabIndex = 33;
-            this.eslGauge6.TextColor = System.Drawing.Color.Black;
-            this.eslGauge6.Units = "°F";
-            this.eslGauge6.Value = 200;
+            this.ESDTempGauge3.CustomText = null;
+            this.ESDTempGauge3.DangerColor = System.Drawing.Color.Red;
+            this.ESDTempGauge3.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDTempGauge3.FloatValue = "160.5";
+            this.ESDTempGauge3.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge3.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge3.HighPercentage = 90;
+            this.ESDTempGauge3.Location = new System.Drawing.Point(163, 63);
+            this.ESDTempGauge3.LowColor = System.Drawing.Color.Orange;
+            this.ESDTempGauge3.LowPercentage = 60;
+            this.ESDTempGauge3.Maximum = 250;
+            this.ESDTempGauge3.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDTempGauge3.MediumPercentage = 80;
+            this.ESDTempGauge3.Name = "ESDTempGauge3";
+            this.ESDTempGauge3.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDTempGauge3.SingleColor = false;
+            this.ESDTempGauge3.Size = new System.Drawing.Size(70, 23);
+            this.ESDTempGauge3.TabIndex = 32;
+            this.ESDTempGauge3.TextColor = System.Drawing.Color.Black;
+            this.ESDTempGauge3.Units = "°F";
+            this.ESDTempGauge3.Value = 160;
             // 
-            // eslGauge5
+            // ESDTempGauge2
             // 
-            this.eslGauge5.CustomText = null;
-            this.eslGauge5.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge5.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge5.FloatValue = "160.5";
-            this.eslGauge5.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge5.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge5.HighPercentage = 90;
-            this.eslGauge5.Location = new System.Drawing.Point(350, 55);
-            this.eslGauge5.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge5.LowPercentage = 60;
-            this.eslGauge5.Maximum = 250;
-            this.eslGauge5.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge5.MediumPercentage = 80;
-            this.eslGauge5.Name = "eslGauge5";
-            this.eslGauge5.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
-            this.eslGauge5.SingleColor = false;
-            this.eslGauge5.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge5.TabIndex = 32;
-            this.eslGauge5.TextColor = System.Drawing.Color.Black;
-            this.eslGauge5.Units = "°F";
-            this.eslGauge5.Value = 160;
+            this.ESDTempGauge2.CustomText = null;
+            this.ESDTempGauge2.DangerColor = System.Drawing.Color.Red;
+            this.ESDTempGauge2.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDTempGauge2.FloatValue = "130.3";
+            this.ESDTempGauge2.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge2.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDTempGauge2.HighPercentage = 90;
+            this.ESDTempGauge2.Location = new System.Drawing.Point(87, 63);
+            this.ESDTempGauge2.LowColor = System.Drawing.Color.Orange;
+            this.ESDTempGauge2.LowPercentage = 60;
+            this.ESDTempGauge2.Maximum = 250;
+            this.ESDTempGauge2.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDTempGauge2.MediumPercentage = 80;
+            this.ESDTempGauge2.Name = "ESDTempGauge2";
+            this.ESDTempGauge2.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDTempGauge2.SingleColor = false;
+            this.ESDTempGauge2.Size = new System.Drawing.Size(70, 23);
+            this.ESDTempGauge2.TabIndex = 31;
+            this.ESDTempGauge2.TextColor = System.Drawing.Color.Black;
+            this.ESDTempGauge2.Units = "°F";
+            this.ESDTempGauge2.Value = 130;
             // 
-            // eslGauge4
+            // ESDOverallGB
             // 
-            this.eslGauge4.CustomText = null;
-            this.eslGauge4.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge4.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge4.FloatValue = "130.3";
-            this.eslGauge4.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge4.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge4.HighPercentage = 90;
-            this.eslGauge4.Location = new System.Drawing.Point(266, 55);
-            this.eslGauge4.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge4.LowPercentage = 60;
-            this.eslGauge4.Maximum = 250;
-            this.eslGauge4.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge4.MediumPercentage = 80;
-            this.eslGauge4.Name = "eslGauge4";
-            this.eslGauge4.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
-            this.eslGauge4.SingleColor = false;
-            this.eslGauge4.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge4.TabIndex = 31;
-            this.eslGauge4.TextColor = System.Drawing.Color.Black;
-            this.eslGauge4.Units = "°F";
-            this.eslGauge4.Value = 130;
+            this.ESDOverallGB.Controls.Add(this.ESDVoltageLabel);
+            this.ESDOverallGB.Controls.Add(this.ESDMaxTempGauge);
+            this.ESDOverallGB.Controls.Add(this.ESDOverallCurrentLabel);
+            this.ESDOverallGB.Controls.Add(this.ESDMaxTempLabel);
+            this.ESDOverallGB.Controls.Add(this.ESDCurrentGauge);
+            this.ESDOverallGB.Controls.Add(this.ESDVoltageGauge);
+            this.ESDOverallGB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ESDOverallGB.Location = new System.Drawing.Point(11, 23);
+            this.ESDOverallGB.Name = "ESDOverallGB";
+            this.ESDOverallGB.Size = new System.Drawing.Size(182, 120);
+            this.ESDOverallGB.TabIndex = 38;
+            this.ESDOverallGB.TabStop = false;
+            this.ESDOverallGB.Text = "Overall";
             // 
-            // eslGauge3
+            // ESDVoltageLabel
             // 
-            this.eslGauge3.CustomText = null;
-            this.eslGauge3.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge3.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge3.FloatValue = "100.0";
-            this.eslGauge3.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge3.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge3.HighPercentage = 90;
-            this.eslGauge3.Location = new System.Drawing.Point(182, 55);
-            this.eslGauge3.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge3.LowPercentage = 60;
-            this.eslGauge3.Maximum = 250;
-            this.eslGauge3.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge3.MediumPercentage = 80;
-            this.eslGauge3.Name = "eslGauge3";
-            this.eslGauge3.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
-            this.eslGauge3.SingleColor = false;
-            this.eslGauge3.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge3.TabIndex = 30;
-            this.eslGauge3.TextColor = System.Drawing.Color.Black;
-            this.eslGauge3.Units = "°F";
-            this.eslGauge3.Value = 100;
+            this.ESDVoltageLabel.AutoSize = true;
+            this.ESDVoltageLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDVoltageLabel.Location = new System.Drawing.Point(15, 26);
+            this.ESDVoltageLabel.Name = "ESDVoltageLabel";
+            this.ESDVoltageLabel.Size = new System.Drawing.Size(56, 17);
+            this.ESDVoltageLabel.TabIndex = 1;
+            this.ESDVoltageLabel.Text = "Voltage";
             // 
-            // eslGauge2
+            // ESDMaxTempGauge
             // 
-            this.eslGauge2.CustomText = null;
-            this.eslGauge2.DangerColor = System.Drawing.Color.Red;
-            this.eslGauge2.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
-            this.eslGauge2.FloatValue = "750.51";
-            this.eslGauge2.GaugeColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge2.HighColor = System.Drawing.Color.LimeGreen;
-            this.eslGauge2.HighPercentage = 75;
-            this.eslGauge2.Location = new System.Drawing.Point(98, 55);
-            this.eslGauge2.LowColor = System.Drawing.Color.Orange;
-            this.eslGauge2.LowPercentage = 25;
-            this.eslGauge2.Maximum = 1000;
-            this.eslGauge2.MediumColor = System.Drawing.Color.Yellow;
-            this.eslGauge2.MediumPercentage = 50;
-            this.eslGauge2.Name = "eslGauge2";
-            this.eslGauge2.Polarity = genesis_gui.ProgressBarPolarity.LeftToRight;
-            this.eslGauge2.SingleColor = false;
-            this.eslGauge2.Size = new System.Drawing.Size(74, 23);
-            this.eslGauge2.TabIndex = 29;
-            this.eslGauge2.TextColor = System.Drawing.Color.Black;
-            this.eslGauge2.Units = "A";
-            this.eslGauge2.Value = 750;
+            this.ESDMaxTempGauge.CustomText = null;
+            this.ESDMaxTempGauge.DangerColor = System.Drawing.Color.Red;
+            this.ESDMaxTempGauge.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDMaxTempGauge.FloatValue = "230.3";
+            this.ESDMaxTempGauge.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDMaxTempGauge.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDMaxTempGauge.HighPercentage = 90;
+            this.ESDMaxTempGauge.Location = new System.Drawing.Point(93, 89);
+            this.ESDMaxTempGauge.LowColor = System.Drawing.Color.Orange;
+            this.ESDMaxTempGauge.LowPercentage = 60;
+            this.ESDMaxTempGauge.Maximum = 250;
+            this.ESDMaxTempGauge.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDMaxTempGauge.MediumPercentage = 80;
+            this.ESDMaxTempGauge.Name = "ESDMaxTempGauge";
+            this.ESDMaxTempGauge.Polarity = genesis_gui.ProgressBarPolarity.RightToLeft;
+            this.ESDMaxTempGauge.SingleColor = false;
+            this.ESDMaxTempGauge.Size = new System.Drawing.Size(74, 23);
+            this.ESDMaxTempGauge.TabIndex = 37;
+            this.ESDMaxTempGauge.TextColor = System.Drawing.Color.Black;
+            this.ESDMaxTempGauge.Units = "°F";
+            this.ESDMaxTempGauge.Value = 230;
             // 
-            // ledPanel3
+            // ESDOverallCurrentLabel
             // 
-            this.ledPanel3.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ledPanel3.BlinkTime = 500;
-            this.ledPanel3.IsBlinking = false;
-            this.ledPanel3.Location = new System.Drawing.Point(115, 70);
-            this.ledPanel3.Name = "ledPanel3";
-            this.ledPanel3.OffColor = System.Drawing.Color.LightGray;
-            this.ledPanel3.OffEdgeColor = System.Drawing.Color.DimGray;
-            this.ledPanel3.OnColor = System.Drawing.Color.LimeGreen;
-            this.ledPanel3.OnEdgeColor = System.Drawing.Color.DarkGreen;
-            this.ledPanel3.Size = new System.Drawing.Size(20, 20);
-            this.ledPanel3.TabIndex = 14;
-            this.ledPanel3.Value = false;
+            this.ESDOverallCurrentLabel.AutoSize = true;
+            this.ESDOverallCurrentLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDOverallCurrentLabel.Location = new System.Drawing.Point(15, 59);
+            this.ESDOverallCurrentLabel.Name = "ESDOverallCurrentLabel";
+            this.ESDOverallCurrentLabel.Size = new System.Drawing.Size(55, 17);
+            this.ESDOverallCurrentLabel.TabIndex = 2;
+            this.ESDOverallCurrentLabel.Text = "Current";
             // 
-            // ledPanel2
+            // ESDMaxTempLabel
             // 
-            this.ledPanel2.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ledPanel2.BlinkTime = 500;
-            this.ledPanel2.IsBlinking = false;
-            this.ledPanel2.Location = new System.Drawing.Point(115, 46);
-            this.ledPanel2.Name = "ledPanel2";
-            this.ledPanel2.OffColor = System.Drawing.Color.LightGray;
-            this.ledPanel2.OffEdgeColor = System.Drawing.Color.DimGray;
-            this.ledPanel2.OnColor = System.Drawing.Color.LimeGreen;
-            this.ledPanel2.OnEdgeColor = System.Drawing.Color.DarkGreen;
-            this.ledPanel2.Size = new System.Drawing.Size(20, 20);
-            this.ledPanel2.TabIndex = 12;
-            this.ledPanel2.Value = false;
+            this.ESDMaxTempLabel.AutoSize = true;
+            this.ESDMaxTempLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ESDMaxTempLabel.Location = new System.Drawing.Point(15, 92);
+            this.ESDMaxTempLabel.Name = "ESDMaxTempLabel";
+            this.ESDMaxTempLabel.Size = new System.Drawing.Size(73, 17);
+            this.ESDMaxTempLabel.TabIndex = 36;
+            this.ESDMaxTempLabel.Text = "Max Temp";
             // 
-            // ConnectedLED
+            // ESDCurrentGauge
             // 
-            this.ConnectedLED.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.ConnectedLED.BlinkTime = 500;
-            this.ConnectedLED.IsBlinking = false;
-            this.ConnectedLED.Location = new System.Drawing.Point(115, 22);
-            this.ConnectedLED.Name = "ConnectedLED";
-            this.ConnectedLED.OffColor = System.Drawing.Color.LightGray;
-            this.ConnectedLED.OffEdgeColor = System.Drawing.Color.DimGray;
-            this.ConnectedLED.OnColor = System.Drawing.Color.LimeGreen;
-            this.ConnectedLED.OnEdgeColor = System.Drawing.Color.DarkGreen;
-            this.ConnectedLED.Size = new System.Drawing.Size(20, 20);
-            this.ConnectedLED.TabIndex = 10;
-            this.ConnectedLED.Value = false;
+            this.ESDCurrentGauge.CustomText = null;
+            this.ESDCurrentGauge.DangerColor = System.Drawing.Color.Red;
+            this.ESDCurrentGauge.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDCurrentGauge.FloatValue = "750.51";
+            this.ESDCurrentGauge.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDCurrentGauge.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDCurrentGauge.HighPercentage = 75;
+            this.ESDCurrentGauge.Location = new System.Drawing.Point(93, 56);
+            this.ESDCurrentGauge.LowColor = System.Drawing.Color.Orange;
+            this.ESDCurrentGauge.LowPercentage = 25;
+            this.ESDCurrentGauge.Maximum = 1000;
+            this.ESDCurrentGauge.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDCurrentGauge.MediumPercentage = 50;
+            this.ESDCurrentGauge.Name = "ESDCurrentGauge";
+            this.ESDCurrentGauge.Polarity = genesis_gui.ProgressBarPolarity.LeftToRight;
+            this.ESDCurrentGauge.SingleColor = false;
+            this.ESDCurrentGauge.Size = new System.Drawing.Size(74, 23);
+            this.ESDCurrentGauge.TabIndex = 29;
+            this.ESDCurrentGauge.TextColor = System.Drawing.Color.Black;
+            this.ESDCurrentGauge.Units = "A";
+            this.ESDCurrentGauge.Value = 750;
+            // 
+            // ESDVoltageGauge
+            // 
+            this.ESDVoltageGauge.CustomText = null;
+            this.ESDVoltageGauge.DangerColor = System.Drawing.Color.Red;
+            this.ESDVoltageGauge.DisplayStyle = genesis_gui.ProgressBarDisplayText.FloatValue;
+            this.ESDVoltageGauge.FloatValue = "230.47";
+            this.ESDVoltageGauge.GaugeColor = System.Drawing.Color.LimeGreen;
+            this.ESDVoltageGauge.HighColor = System.Drawing.Color.LimeGreen;
+            this.ESDVoltageGauge.HighPercentage = 75;
+            this.ESDVoltageGauge.Location = new System.Drawing.Point(93, 23);
+            this.ESDVoltageGauge.LowColor = System.Drawing.Color.Orange;
+            this.ESDVoltageGauge.LowPercentage = 25;
+            this.ESDVoltageGauge.Maximum = 250;
+            this.ESDVoltageGauge.MediumColor = System.Drawing.Color.Yellow;
+            this.ESDVoltageGauge.MediumPercentage = 50;
+            this.ESDVoltageGauge.Name = "ESDVoltageGauge";
+            this.ESDVoltageGauge.Polarity = genesis_gui.ProgressBarPolarity.LeftToRight;
+            this.ESDVoltageGauge.SingleColor = false;
+            this.ESDVoltageGauge.Size = new System.Drawing.Size(74, 23);
+            this.ESDVoltageGauge.TabIndex = 35;
+            this.ESDVoltageGauge.TextColor = System.Drawing.Color.Black;
+            this.ESDVoltageGauge.Units = "V";
+            this.ESDVoltageGauge.Value = 230;
+            // 
+            // statusStrip
+            // 
+            this.statusStrip.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.UserMessage});
+            this.statusStrip.Location = new System.Drawing.Point(0, 445);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(616, 22);
+            this.statusStrip.TabIndex = 17;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // UserMessage
+            // 
+            this.UserMessage.Name = "UserMessage";
+            this.UserMessage.Size = new System.Drawing.Size(0, 17);
             // 
             // Sandbox
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(614, 398);
-            this.Controls.Add(this.groupBox1);
+            this.ClientSize = new System.Drawing.Size(616, 467);
+            this.Controls.Add(this.statusStrip);
+            this.Controls.Add(this.ESDGB);
             this.Controls.Add(this.ModeGB);
             this.Controls.Add(this.ControlsGB);
             this.Controls.Add(this.ConnectGB);
@@ -1031,6 +1108,7 @@
             this.Controls.Add(this.CurrentsGB);
             this.Controls.Add(this.TemperaturesGB);
             this.Controls.Add(this.VoltagesGB);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Sandbox";
             this.Text = "GENESIS";
@@ -1047,8 +1125,13 @@
             this.ControlsGB.ResumeLayout(false);
             this.ModeGB.ResumeLayout(false);
             this.ModeGB.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
+            this.ESDGB.ResumeLayout(false);
+            this.ESDTempsGB.ResumeLayout(false);
+            this.ESDTempsGB.PerformLayout();
+            this.ESDOverallGB.ResumeLayout(false);
+            this.ESDOverallGB.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1090,16 +1173,16 @@
         private System.Windows.Forms.ToolStripMenuItem commsSetupToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.GroupBox ConnectGB;
-        private M4359_GUI.LEDPanel ConnectedLED;
+        private M4359_GUI.LEDPanel CommsLED;
         private System.Windows.Forms.Label CANBusStatusLabel;
         private System.Windows.Forms.GroupBox ControlsGB;
         private System.Windows.Forms.Button EStopButton;
         private System.Windows.Forms.Button StopButton;
         private System.Windows.Forms.Button StartButton;
         private System.Windows.Forms.GroupBox ModeGB;
-        private System.Windows.Forms.RadioButton PowerModeRB;
-        private System.Windows.Forms.RadioButton IdleModeRB;
-        private System.Windows.Forms.RadioButton VoltageModeRB;
+        private System.Windows.Forms.RadioButton OperationalModeRB;
+        private System.Windows.Forms.RadioButton SafetyModeRB;
+        private System.Windows.Forms.RadioButton BalanceModeRB;
         private System.Windows.Forms.RadioButton OffModeRB;
         private System.Windows.Forms.TextBox TempField8;
         private System.Windows.Forms.TextBox TempField7;
@@ -1107,27 +1190,33 @@
         private System.Windows.Forms.Label TempLabel8;
         private System.Windows.Forms.Label TempLabel7;
         private System.Windows.Forms.Label TempLabel6;
-        private M4359_GUI.LEDPanel ledPanel2;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private M4359_GUI.LEDPanel ledPanel3;
-        private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label1;
-        private ESLGauge eslGauge1;
-        private ESLGauge eslGauge7;
-        private ESLGauge eslGauge6;
-        private ESLGauge eslGauge5;
-        private ESLGauge eslGauge4;
-        private ESLGauge eslGauge3;
-        private ESLGauge eslGauge2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label9;
+        private M4359_GUI.LEDPanel RelaysLED;
+        private System.Windows.Forms.Label RelaysLabel;
+        private System.Windows.Forms.GroupBox ESDGB;
+        private M4359_GUI.LEDPanel OverVoltageLED;
+        private System.Windows.Forms.Label OverVoltageLabel;
+        private System.Windows.Forms.Label ESDOverallCurrentLabel;
+        private System.Windows.Forms.Label ESDVoltageLabel;
+        private ESLGauge ESDVoltageGauge;
+        private ESLGauge ESDTempGauge5;
+        private ESLGauge ESDTempGauge4;
+        private ESLGauge ESDTempGauge3;
+        private ESLGauge ESDTempGauge2;
+        private ESLGauge ESDTempGauge1;
+        private ESLGauge ESDCurrentGauge;
+        private System.Windows.Forms.Label ESDTempLabel5;
+        private System.Windows.Forms.Label ESDTempLabel2;
+        private System.Windows.Forms.Label ESDTempLabel1;
         private System.Windows.Forms.ToolStripMenuItem eSDDisplayToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem valuesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem percentsToolStripMenuItem;
+        private System.Windows.Forms.GroupBox ESDOverallGB;
+        private ESLGauge ESDMaxTempGauge;
+        private System.Windows.Forms.Label ESDMaxTempLabel;
+        private System.Windows.Forms.GroupBox ESDTempsGB;
+        private System.Windows.Forms.Label ESDTempLabel4;
+        private System.Windows.Forms.Label ESDTempLabel3;
+        private System.Windows.Forms.StatusStrip statusStrip;
+        private System.Windows.Forms.ToolStripStatusLabel UserMessage;
     }
 }
